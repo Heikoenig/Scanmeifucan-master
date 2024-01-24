@@ -1,5 +1,5 @@
 [build]
-  publish = "dist/travellist"
+  publish = "dist/scanmeifucan"
   command = "ng build lottie-anim; ng build"
 
 [[redirects]]

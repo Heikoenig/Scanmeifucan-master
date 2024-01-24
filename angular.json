@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "travellist": {
+    "Scanmeifucan": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/travellist",
+            "outputPath": "dist/scanmeifucan",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "travellist:build:production"
+              "browserTarget": "Scanmeifucan:build:production"
             },
             "development": {
-              "browserTarget": "travellist:build:development"
+              "browserTarget": "Scanmeifucan:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "travellist:build"
+            "browserTarget": "Scanmeifucan:build"
           }
         },
         "test": {
