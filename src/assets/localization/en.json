@@ -15,11 +15,11 @@
         "greeting-message": "Hey",
         "greeting-quote": "What do you want to scan?",
         "upcoming": "Upcoming",
-        "add-task": "Add destination",
+        "add-task": "Add Contact",
         "loading": "Loading",
         "empty": "It's empty in here",
         "empty-info": "You don't have any upcoming plans.",
-        "empty-info-past": "You don't have any past destinations."
+        "empty-info-past": "You don't have any Contacts."
     },
     "destinations-component": {
         "header": "Your travel plans",
