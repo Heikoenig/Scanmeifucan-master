@@ -1,0 +1,69 @@
+<div class="sidebar">
+    <!-- Header -->
+    <div class="sidebar-header">
+        <img src="assets/logos/travel-list-logo-only.png" width="120">
+    </div>
+
+    <!-- Sidebar menu -->
+    <ul class="sidebar-menu">
+        <li (click)="closeSidebar()" [routerLink]="'home'" id="home-item" class="sidebar-menu-item animate__animated animate__faster animate__slideInUpBig" [routerLinkActive]="'active'" matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
+            <div class="sidebar-menu-item-container">
+                <i class="bi bi-houses-fill"></i>
+                {{ 'sidebar-component.home-page' | translate }}
+            </div>
+        </li>
+        <li (click)="closeSidebar()" [routerLink]="'destinations'" id="list-item" class="sidebar-menu-item animate__animated animate__faster animate__slideInUpBig animate__delay-100ms" [routerLinkActive]="'active'" matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
+            <div class="sidebar-menu-item-container">
+                <i class="bi bi-grid-1x2-fill"></i>
+                {{ 'sidebar-component.dest-page' | translate }} <span *ngIf="destinationCount > 0" class="badge text-bg-secondary animate__animated animate__faster animate__slideInUpBig">{{ destinationCount }}</span>
+            </div>
+        </li>
+        <li (click)="closeSidebar()" [routerLink]="'privacy'" id="privacy-item" class="sidebar-menu-item animate__animated animate__faster animate__slideInUpBig animate__delay-200ms" [routerLinkActive]="'active'" matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
+            <div class="sidebar-menu-item-container">
+                <i class="bi bi-shield-fill"></i>
+                {{ 'sidebar-component.privacy-page' | translate }}    
+            </div>
+        </li>
+    </ul>
+
+    <!-- My lists -->
+    <div class="sidebar-section-header animate__animated animate__faster animate__slideInUpBig animate__delay-200ms">
+        <span> {{ 'sidebar-component.lists-page' | translate }} </span>
+        <button mat-icon-button color="primary" class="ms-2" (click)="openListDialog()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li (click)="closeSidebar()" [routerLink]="'destinations'" [queryParams]="{type: 'list', id: list.id}" [routerLinkActive]="'active'" *ngFor="let list of availableLists" id="home-item" class="sidebar-menu-item animate__animated animate__faster animate__slideInUpBig" matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
+            <div class="sidebar-menu-item-container">
+                {{ list.name }}
+            </div>
+        </li>
+    </ul>
+
+    <!-- Tags -->
+    <div class="sidebar-section-header animate__animated animate__faster animate__slideInUpBig animate__delay-300ms">
+        {{ 'sidebar-component.tags-page' | translate }}
+        <button mat-icon-button color="primary" class="ms-2" (click)="openTagsDialog()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li (click)="closeSidebar()" [routerLink]="'destinations'" [queryParams]="{type: 'tag', id: tag.id}" [routerLinkActive]="'active'" *ngFor="let tag of availableTags" id="home-item" class="sidebar-menu-item animate__animated animate__faster animate__slideInUpBig" matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
+            <div class="sidebar-menu-item-container">
+                #{{ tag.name }}
+            </div>
+        </li>
+    </ul>
+
+    <!-- Theme toggler -->
+    <div class="theme-toggler">
+        <div class="wrapper">
+            <button mat-raised-button [color]="this.isLightTheme ? '' : 'primary'" (click)="toggleTheme(!this.isLightTheme);">
+                {{ 'sidebar-component.toggle-theme' | translate }}
+            </button>
+          </div>
+    </div>
+</div>
