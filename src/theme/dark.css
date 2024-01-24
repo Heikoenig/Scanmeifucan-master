@@ -6,10 +6,10 @@
     --body-color-variant: white;
     
     /** SIDEBAR **/
-    --sidebar-background-color: #252525;
-    --sidebar-color: #909090;
-    --sidebar-active-color: #3fa9f5;
-    --sidebar-item-hover-background-color: #302f2f;
+    --sidebar-background-color: #3fa9f5;
+    --sidebar-color: #ffffff;
+    --sidebar-active-color: #ffffff;
+    --sidebar-item-hover-background-color: black;
     --sidebar-header-color: white;
     
     /** TRAVEL LIST **/
