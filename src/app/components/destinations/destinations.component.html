@@ -19,11 +19,6 @@
                                         {{ 'destinations-component.upcoming' | translate }}
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <div *ngIf="!isLoading && upcomingDestinations.length == 0" class="text-center mt-5">
-                                    <lib-lottie-anim [width]="'150px'" [segments]="[0, 146]" [path]="'assets/animations/schedule-anim.json'" [autoplay]="true"></lib-lottie-anim>
-                                    <h1 class="animate__animated animate__faster animate__slideInUpBig">{{ 'home-component.empty' | translate }}</h1>
-                                    <p class="animate__animated animate__faster animate__slideInUpBig animate__delay-100ms">{{ 'home-component.empty-info' | translate }}</p>
-                                </div>
                                 <ul class="travel-list mt-3">
                                     <li class="travel-list-item" [ngClass]="{'active': selectedDestination != undefined && selectedDestination.id == destination.id}" matRipple *ngFor="let destination of upcomingDestinations" (click)="selectedDestination = destination; showDetailsDialog(destination);">
                                         <div class="travel-list-item-panel">
