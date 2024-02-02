@@ -33,17 +33,11 @@
         </div>
 
         <div class="mt-5">
-            <h1 class="greeting-message">{{ 'home-component.upcoming' | translate }}</h1>
+            <h1 class="greeting-message">{{ 'home-component.recent' | translate }}</h1>
         </div>
 
         <div *ngIf="isLoading" class="text-center mt-5 mb-5">
             <h1 class="animate__animated animate__faster animate__slideInUpBig">{{ 'home-component.loading' | translate }}...</h1>
-        </div>
-
-        <div *ngIf="!isLoading && upcomingDestinations.length == 0" class="text-center mt-5" [@opacityAnimation]="'in'">
-            <lib-lottie-anim [width]="'250px'" [loop]="true" [segments]="[0, 146]" [path]="'assets/animations/travel-anim.json'" [autoplay]="true"></lib-lottie-anim>
-            <h1 class="animate__animated animate__faster animate__slideInUpBig">{{ 'home-component.empty' | translate }}</h1>
-            <p class="animate__animated animate__faster animate__slideInUpBig animate__delay-100ms">{{ 'home-component.empty-info' | translate }}</p>
         </div>
 
         <ul class="travel-list mt-3 mb-5 animate__animated animate__slideInUp animate__faster">
@@ -62,11 +56,6 @@
                         </mat-chip-set>
                         <p>{{ destination.destination }}</p>
                     </div>
-                    <!-- <div class="travel-list-action-panel">
-                        <button mat-mini-fab color="warn">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </div> -->
                 </div>
             </li>
         </ul>
