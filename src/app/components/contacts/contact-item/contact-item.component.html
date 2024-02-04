@@ -1,0 +1,13 @@
+<div class="travel-list-item-panel">
+    <mat-checkbox [(ngModel)]="contact.done" class="list-item-checkbox"></mat-checkbox>
+    <div class="list-item-avatar">
+      {{ contact.avatar }}
+    </div>
+    <div class="list-item-info-panel">
+      <p>{{ contact.firstname }} {{ contact.lastname }}</p>
+      <span class="continent">{{ contact.profession }}</span>
+    </div>
+    <div class="delete-icon ml-auto">
+      <i class="bi bi-trash-fill" (click)="deleteContact(contact.id)"></i>
+    </div>
+  </div>
