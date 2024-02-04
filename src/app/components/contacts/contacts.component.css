@@ -1,0 +1,107 @@
+@media only screen and (max-width: 1200px) {
+    .inspector-col {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .card {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+}
+
+.root-container {
+    position: relative;
+    overflow: auto;
+    height: 100%;
+}
+.contact-content {
+    transform: translate(-0%, 0%);
+    flex-direction: column;
+    overflow: auto;
+}
+.card-header-text {
+    font-weight: 500;
+}
+.list-col {
+    height: 550px;
+}
+.list-col .card {
+    overflow: auto;
+    height: 550px;
+    position: relative;
+}
+.inspector-col .card {
+  overflow: auto;
+  height: 550px;
+}
+.card {
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    border-radius: 10px;
+    border: 0;
+    background-color: var(--travel-list-card-background-color);
+}
+.card-header-text {
+    color: var(--body-color-variant);
+}
+.inspector-col h3 {
+    font-weight: 500;
+    font-size: 18px;
+}
+.continent {
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+}
+.list-item-checkbox {
+    margin-top: 5px;
+}
+.travel-list-item {
+    background-color: unset;
+
+}
+
+.travel-list-item.active {
+    background-color: var(--travel-list-item-active-background);
+}
+
+.travel-list-item:hover {
+    background-color: var(--travel-list-item-hover-background);
+}
+.mat-expansion-panel {
+    background-color: transparent;
+    color: unset;
+    box-shadow: unset;
+}
+.mat-expansion-panel-header {
+    background-color: var(--travel-list-expander-background-color);
+}
+.mat-expansion-panel-header.mat-expanded {
+    background-color: var(--travel-list-expander-expanded-background-color) !important;
+}
+.mat-expansion-panel-header:hover {
+    background-color: var(--travel-list-expander-hover-background-color) !important;
+}
+.contact-name {
+    color: var(--body-color-variant);
+}
+.mat-expansion-panel-header-title {
+    color: unset;
+}
+
+
+.round-btn {
+  border-radius: 20px;
+  background-color: #3FA9F5 !important;
+}
+
+.blue-btn{
+  border-radius: 20px;
+  background-color: #3FA9F5 !important;
+}
+
+.black-btn{
+  border-radius: 20px;
+  background-color: #6C6C6C !important;
+}
