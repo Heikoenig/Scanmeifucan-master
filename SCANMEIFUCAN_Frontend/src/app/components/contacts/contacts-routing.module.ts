@@ -4,7 +4,8 @@ import { ContactsComponent } from './contacts.component';
 
 const routes: Routes = [
   { path: '', component: ContactsComponent },
-  { path: 'add-contact', component: ContactsComponent, data: { mode: 'add' } }
+  { path: 'add-contact', component: ContactsComponent },
+    { path: 'manage-contact', component: ContactsComponent }
 ];
 
 @NgModule({
