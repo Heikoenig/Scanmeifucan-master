@@ -21,6 +21,21 @@
         "empty-info": "You don't have any upcoming plans.",
         "empty-info-past": "You don't have any Contacts."
     },
+    "contacts-component": {
+        "header": "Most Recently Added",
+        "notes": "Notes about destination",
+        "lists": "List",
+        "tags": "Tags",
+        "mark-done": "Mark as completed",
+        "mark-undone": "Mark as upcoming",
+        "notes-placeholder": "Enter notes here",
+        "upcoming": "Upcoming",
+        "past": "Past",
+        "delete": "Delete",
+        "notes-placeholder-readonly": "Destination notes",
+        "select-info": "Select any destination to see more info here.",
+        "save-notes": "Save changes"
+      },
     "destinations-component": {
         "header": "Your travel plans",
         "notes": "Notes about destination",

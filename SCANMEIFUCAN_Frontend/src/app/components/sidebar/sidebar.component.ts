@@ -1,6 +1,6 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
+import { LottieAnimComponent } from 'lottie-anim';
 import { AppComponent } from 'src/app/app.component';
 import { IList } from 'src/app/models/list.interface';
 import { ITag } from 'src/app/models/tag.interface';
@@ -9,34 +9,28 @@ import { ListsService } from 'src/app/services/lists.service';
 import { TagsService } from 'src/app/services/tags.service';
 import { ListDialogComponent } from '../dialogs/list-dialog/list-dialog.component';
 import { TagsDialogComponent } from '../dialogs/tags-dialog/tags-dialog.component';
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-
   /**
    * Light theme by default.
    */
   public isLightTheme: boolean = true;
-
   /**
    * Gets or sets list of all available lists.
    */
   public availableLists: IList[] = [];
-
   /**
    * Gets or sets list if all available tags.
    */
   public availableTags: ITag[] = [];
-
   /**
    * Gets or sets number of upcoming destinations.
    */
   public destinationCount: number = 0;
-
   constructor(
     private listsService: ListsService,
     private tagsService: TagsService,
@@ -63,7 +57,6 @@ export class SidebarComponent {
         })
       });
     }, this.listsService.isInitialized ? 0 : 1000);
-
     setTimeout(() => {
       this.tagsService.getTags().subscribe(result => {
         this.availableTags = result.map((item) => {
@@ -72,7 +65,7 @@ export class SidebarComponent {
       });
     }, this.tagsService.isInitialized ? 0 : 1000);
 
-    setTimeout(() => {     
+    setTimeout(() => {
       this.destinationsService.getUpcomingDestinations().subscribe(result => {
         this.destinationCount = result.length;
       });
@@ -84,22 +77,21 @@ export class SidebarComponent {
    */
   public openListDialog(): void {
     const dialogRef = this.dialog.open(ListDialogComponent);
-  }
 
+  }
   /**
    * Opens dialog for adding new tag.
    */
   public openTagsDialog(): void {
     const dialogRef = this.dialog.open(TagsDialogComponent);
-  }
 
+  }
   /**
    * Closes sidebar in narrow mode.
    */
   public closeSidebar(): void {
     AppComponent.isSidebarToggled = false;
   }
-
   /**
    * Toggles application theme.
    */
