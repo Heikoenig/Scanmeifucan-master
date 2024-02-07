@@ -20,6 +20,8 @@ import { TagsService } from './services/tags.service';
 import { DestinationService } from './services/destination.service';
 import { DetailsDialogComponent } from './components/dialogs/details-dialog/details-dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { WebcamModule } from 'ngx-webcam';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    WebcamModule,
     // Module needed for translation
     TranslateModule.forRoot({
       defaultLanguage: 'en',

@@ -22,6 +22,8 @@
         "empty-info-past": "You don't have any Contacts."
     },
     "contacts-component": {
+        "recently-added": "Most Recently Added",
+        "add-contact": "Add Contact",
         "header": "Most Recently Added",
         "notes": "Notes about destination",
         "lists": "List",

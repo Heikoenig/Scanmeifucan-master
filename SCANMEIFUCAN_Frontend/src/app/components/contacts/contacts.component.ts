@@ -9,6 +9,8 @@ import { TagsService } from 'src/app/services/tags.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import { DetailsDialogComponent } from '../dialogs/details-dialog/details-dialog.component';
+import { WebcamImage, WebcamInitError } from 'ngx-webcam';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-contacts',
@@ -59,7 +61,7 @@ export class ContactsComponent {
       createdAt: '2022-01-27T14:30:00Z',
       tag: this.tag2,
       list: this.list2,
-      done: true,
+      done: false,
       notes: 'Work collaboration.'
     },
     {
@@ -79,7 +81,7 @@ export class ContactsComponent {
       createdAt: '2022-01-27T14:30:00Z',
       tag: this.tag2,
       list: this.list2,
-      done: true,
+      done: false,
       notes: 'Work collaboration.'
     },
     // Add more objects as needed...
@@ -114,6 +116,15 @@ export class ContactsComponent {
   }
   public ngOnInit(): void {
   }
+
+  public selectListItem(contact: IContact) {
+    this.upcomingContacts.map(x=> x.done =false);
+    this.isAddMode = false;
+    contact.done = true;
+    this.selectedContact = contact;
+    this.showDetailsDialog(contact);
+  }
+
   private initializeData(type: string | undefined = undefined, id: string | undefined = undefined): void {
     this.getUpcomingContacts(type, id);
     this.getPastContacts(type, id);
@@ -213,5 +224,30 @@ export class ContactsComponent {
     this.dialog.open(DetailsDialogComponent, {
       data: { contact: contact }
     });
+  }
+
+
+  private trigger: Subject<any> = new Subject();
+  webcamImage: any;
+  private nextWebcam: Subject<any> = new Subject();
+
+  sysImage = '';
+
+  public getSnapshot(): void {
+    this.trigger.next(void 0);
+  }
+
+  public captureImg(webcamImage: WebcamImage): void {
+    this.webcamImage = webcamImage;
+    this.sysImage = webcamImage!.imageAsDataUrl;
+    console.info('got webcam image', this.sysImage);
+  }
+
+  public get invokeObservable(): Observable<any> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<any> {
+    return this.nextWebcam.asObservable();
   }
 }
