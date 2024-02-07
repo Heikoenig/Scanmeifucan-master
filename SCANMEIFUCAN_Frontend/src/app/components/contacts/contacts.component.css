@@ -29,12 +29,12 @@
 }
 .list-col .card {
     overflow: auto;
-    height: 550px;
+    max-height: 44%;
     position: relative;
 }
 .inspector-col .card {
   overflow: auto;
-  height: 550px;
+  max-height: 44%;
 }
 .card {
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;

@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DetailsDialogComponent } from '../dialogs/details-dialog/details-dialog.component';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
+import { ExtractedInformation } from 'src/app/models/extracted-Information.interface';
 
 @Component({
   selector: 'app-contacts',
@@ -19,12 +21,6 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ContactsComponent {
 
-  // Sample data for tags and lists
-  public tag1: ITag = { id: '1', name: 'Personal' };
-  public tag2: ITag = { id: '2', name: 'Work' };
-
-  public list1: IList = { id: '1', name: 'To-Do' };
-  public list2: IList = { id: '2', name: 'Contacts' };
 
   public searchText: string = '';
   public isAddMode: boolean = false;
@@ -32,68 +28,10 @@ export class ContactsComponent {
  * Gets or sets if data is being loaded.
  */
   public isLoading: boolean = false;
-  /**
-   * Gets or sets list of all available lists.
-   */
-  public availableLists: IList[] = [];
-  /**
-   * Gets or sets list if all available tags.
-   */
-  public availableTags: ITag[] = [];
-  /**
-   * Gets or sets list of upcoming contacts.
-   */
-  public upcomingContacts: IContact[] = [
-    {
-      id: '1',
-      contact: 'John Doe',
-      continent: 'North America',
-      createdAt: '2022-01-28T12:00:00Z',
-      tag: this.tag1,
-      list: this.list1,
-      done: false,
-      notes: 'Met at the conference.'
-    },
-    {
-      id: '2',
-      contact: 'Alice Smith',
-      continent: 'Europe',
-      createdAt: '2022-01-27T14:30:00Z',
-      tag: this.tag2,
-      list: this.list2,
-      done: false,
-      notes: 'Work collaboration.'
-    },
-    {
-      id: '3',
-      contact: 'John Doe',
-      continent: 'North America',
-      createdAt: '2022-01-28T12:00:00Z',
-      tag: this.tag1,
-      list: this.list1,
-      done: false,
-      notes: 'Met at the conference.'
-    },
-    {
-      id: '4',
-      contact: 'Alice Smith',
-      continent: 'Europe',
-      createdAt: '2022-01-27T14:30:00Z',
-      tag: this.tag2,
-      list: this.list2,
-      done: false,
-      notes: 'Work collaboration.'
-    },
-    // Add more objects as needed...
-  ];
-  /**
- * Gets or sets list of upcoming contacts.
- */
-  public pastContacts: IContact[] = [];
-  /**
-   * Gets or sets selected contact.
-   */
-  public selectedContact: IContact | undefined;
+
+  public upcomingContacts: ExtractedInformation[] = [];
+
+  public selectedContact: ExtractedInformation | undefined;
 
 
   constructor(
@@ -101,6 +39,7 @@ export class ContactsComponent {
     private listsService: ListsService,
     private tagsService: TagsService,
     private contactsService: ContactService,
+    private apiService: ApiService,
     public dialog: MatDialog) {
     this.isAddMode = route.snapshot.data['mode'] == 'add';
     // Check passed query params to check if we
@@ -113,11 +52,12 @@ export class ContactsComponent {
 
       //this.initializeData(type, id);
     });
+    this.getPagedContacts();
   }
   public ngOnInit(): void {
   }
 
-  public selectListItem(contact: IContact) {
+  public selectListItem(contact: ExtractedInformation) {
     this.upcomingContacts.map(x => x.done = false);
     this.isAddMode = false;
     contact.done = true;
@@ -125,99 +65,22 @@ export class ContactsComponent {
     this.showDetailsDialog(contact);
   }
 
-  private initializeData(type: string | undefined = undefined, id: string | undefined = undefined): void {
-    this.getUpcomingContacts(type, id);
-    this.getPastContacts(type, id);
-    setTimeout(() => {
-      this.listsService.getLists().subscribe(result => {
-        this.availableLists = result.map((item) => {
-          return item._data;
-        })
-      });
-    }, this.listsService.isInitialized ? 0 : 1000);
-    setTimeout(() => {
-      this.tagsService.getTags().subscribe(result => {
-        this.availableTags = result.map((item) => {
-          return item._data;
-        })
-      });
-    }, this.tagsService.isInitialized ? 0 : 1000);
-  }
-  /**
-  * Gets upcoming contacts.
-  */
-  private getUpcomingContacts(type: string | undefined = undefined, id: string | undefined = undefined): void {
-    setTimeout(() => {
-      this.contactsService.getUpcomingContacts(type, id).subscribe(result => {
-        this.upcomingContacts = result.map((val) => {
-          return val._data;
-        });
 
-        if (type != undefined) {
-          this.upcomingContacts = this.upcomingContacts.filter(x => type == 'list' ? (x.list.id == id) : (x.tag.id == id));
-        }
-      });
-    }, this.contactsService.isInitialized ? 0 : 1000);
+  private getPagedContacts(): void {
+    this.apiService.getPagedInformation(1, 20).subscribe(result => {
+      this.upcomingContacts = result.information;
+    });
   }
 
-  /**
-   * Gets upcoming contacts.
-   */
-  private getPastContacts(type: string | undefined = undefined, id: string | undefined = undefined): void {
-    setTimeout(() => {
-      this.contactsService.getPastContacts(type, id).subscribe(result => {
-        this.pastContacts = result.map((val) => {
-          return val._data;
-        });
-
-        if (type != undefined) {
-          this.pastContacts = this.pastContacts.filter(x => type == 'list' ? (x.list.id == id) : (x.tag.id == id));
-        }
-      });
-      this.isLoading = false;
-    }, this.contactsService.isInitialized ? 0 : 1000);
-  }
-  /**
-   * Deletes selected contact.
-   */
-  public deleteContact(): void {
-    this.contactsService.deleteContact(this.selectedContact!);
-
-  }
-  /**
-   * Completes selected contact.
-   */
-  public completeContact(contact: IContact, complete: boolean): void {
-    this.contactsService.completeContact(contact, complete);
-    this.selectedContact = undefined;
+  public deleteContact(id: number): void {
+    debugger
+    this.apiService.deleteInformation(id).subscribe(x => {
+      this.selectedContact = undefined;
+      this.getPagedContacts();
+    });
   }
 
-  /**
-   * Sets tag for the contact.
-   * @param tag
-   */
-  public updateTag(tag: ITag): void {
-    this.contactsService.setTag(this.selectedContact!, tag);
-  }
-  /**
-   * Sets list for the contact.
-   * @param list
-   */
-  public updateList(list: IList): void {
-    this.contactsService.setList(this.selectedContact!, list);
-  }
-  /**
-   * Sets notes for the contact.
-   * @param list
-   */
-  public updateNotes(newValue: string): void {
-    this.contactsService.setNotes(this.selectedContact!, newValue);
-  }
-  /**
-   * Shows details dialog about selected contact
-   * if display is in narrow mode.
-   */
-  public showDetailsDialog(contact: IContact): void {
+  public showDetailsDialog(contact: ExtractedInformation): void {
     let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     if (width > 1200)
       return;
@@ -253,8 +116,8 @@ export class ContactsComponent {
   public get nextWebcamObservable(): Observable<any> {
     return this.nextWebcam.asObservable();
   }
-  
-  saveImage(){
+
+  saveImage() {
     // call api here
   }
 }
