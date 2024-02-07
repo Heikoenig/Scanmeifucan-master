@@ -24,7 +24,8 @@ export class ContactsComponent {
   public list1: IList = { id: '1', name: 'To-Do' };
   public list2: IList = { id: '2', name: 'Contacts' };
 
-
+  public searchText: string = '';
+  public isAddMode: boolean = false;
   /**
  * Gets or sets if data is being loaded.
  */
@@ -40,7 +41,7 @@ export class ContactsComponent {
   /**
    * Gets or sets list of upcoming contacts.
    */
-  public upcomingContacts: IContact[] =  [
+  public upcomingContacts: IContact[] = [
     {
       id: '1',
       contact: 'John Doe',
@@ -99,6 +100,7 @@ export class ContactsComponent {
     private tagsService: TagsService,
     private contactsService: ContactService,
     public dialog: MatDialog) {
+    this.isAddMode = route.snapshot.data['mode'] == 'add';
     // Check passed query params to check if we
     // need to load all contacts or from specified list / tag.
     this.route.queryParams.subscribe(params => {
@@ -130,17 +132,17 @@ export class ContactsComponent {
       });
     }, this.tagsService.isInitialized ? 0 : 1000);
   }
-   /**
-   * Gets upcoming contacts.
-   */
-   private getUpcomingContacts(type: string | undefined = undefined, id: string | undefined = undefined): void {
+  /**
+  * Gets upcoming contacts.
+  */
+  private getUpcomingContacts(type: string | undefined = undefined, id: string | undefined = undefined): void {
     setTimeout(() => {
       this.contactsService.getUpcomingContacts(type, id).subscribe(result => {
         this.upcomingContacts = result.map((val) => {
           return val._data;
         });
 
-        if(type != undefined) {
+        if (type != undefined) {
           this.upcomingContacts = this.upcomingContacts.filter(x => type == 'list' ? (x.list.id == id) : (x.tag.id == id));
         }
       });
@@ -157,7 +159,7 @@ export class ContactsComponent {
           return val._data;
         });
 
-        if(type != undefined) {
+        if (type != undefined) {
           this.pastContacts = this.pastContacts.filter(x => type == 'list' ? (x.list.id == id) : (x.tag.id == id));
         }
       });
@@ -206,10 +208,10 @@ export class ContactsComponent {
    */
   public showDetailsDialog(contact: IContact): void {
     let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    if(width > 1200)
+    if (width > 1200)
       return;
     this.dialog.open(DetailsDialogComponent, {
-      data: { contact: contact}
+      data: { contact: contact }
     });
   }
 }

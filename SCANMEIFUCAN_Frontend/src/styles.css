@@ -45,10 +45,10 @@ body {
 }
 
 .travel-list-item {
-    padding: 10px;
+    padding: 5px;
     background-color: var(--travel-list-item-background);
     border-radius: 15px;
-    margin: 10px 0;
+    margin: 5px 0;
     user-select: none;
     transition: background-color ease-in-out 100ms;
 }
@@ -69,13 +69,13 @@ body {
 }
 
 .list-item-avatar {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     background-color: #6C6C6C;
     color: #fff;
@@ -96,9 +96,10 @@ body {
 }
 
 .list-item-info-panel p {
-    margin: 5px 0;
-    font-size: 20px;
+    margin: 0;
+    font-size: 16px;
     font-weight: 500;
+    margin-top: 5px;
 }
 
 .list-item-checkbox {
@@ -178,7 +179,21 @@ body {
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-top: 10px;
 }
+
+.contact-panel-details .edit-icon{
+  cursor: pointer;
+  color: #6C6C6C;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.contact-panel-details .row-label{
+  width: 100px;
+}
+
 /* ---- */
 
 .mdc-checkbox__background {

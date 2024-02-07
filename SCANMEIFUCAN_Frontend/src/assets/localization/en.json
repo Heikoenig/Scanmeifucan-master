@@ -34,7 +34,11 @@
         "delete": "Delete",
         "notes-placeholder-readonly": "Destination notes",
         "select-info": "Select any destination to see more info here.",
-        "save-notes": "Save changes"
+        "save-notes": "Save changes",
+        "search-bar-text": "Search by name, address, phone number or similar information",
+        "filter": "Filter",
+        "scan-again": "Scan again",
+        "take-over": "Take over"
       },
     "destinations-component": {
         "header": "Your travel plans",

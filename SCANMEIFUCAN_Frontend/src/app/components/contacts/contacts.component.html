@@ -1,10 +1,18 @@
 <div class="root-container">
-  <div class="contact-content h-100 p-5 container">
+  <div class="contact-content p-4 container">
+    <div style="display: flex; gap: 10px;">
+      <mat-form-field class="w-50">
+        <mat-label>{{'contacts-component.search-bar-text' | translate}}</mat-label>
+        <input type="text" matInput [(ngModel)]="searchText">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <button class="mt-2" mat-raised-button color="primary">{{'contacts-component.filter' | translate}}</button>
+    </div>
     <div class="row h-100">
       <div class="col-xl-4 p-2 list-col">
-        <div class="card w-100 h-100 p-4 animate_animated animateslideInUp animate_faster">
+        <div class="card w-100 h-100 p-2 animate_animated animateslideInUp animate_faster">
           <div class="card-body">
-            <h1 class="card-header-text">{{ 'contacts-component.header' | translate }}</h1>
+            <h2 class="card-header-text">{{ 'contacts-component.header' | translate }}</h2>
             <div *ngIf="isLoading" class="text-center">
               <h1 class="animate_animated animatefaster animate_slideInUpBig">{{
                 'home-component.loading' | translate }}</h1>
@@ -30,7 +38,7 @@
                   </div>
                   <div class="list-item-info-panel">
                     <p>{{ contact.contact }}</p>
-                    <p class="continent">{{ contact.continent }}</p>
+                    <span class="continent">{{ contact.continent }}</span>
                   </div>
                   <div class="delete-icon ml-auto">
                     <i class="bi bi-trash-fill"></i>
@@ -43,7 +51,7 @@
       </div>
       <!-- Contact inspector -->
       <div class="col-xl-8 p-2 inspector-col">
-        <div class="card w-100 h-100 p-4 animate_animated animateslideInUp animatefaster animate_delay-100ms">
+        <div class="card w-100 h-100 p-2 animate_animated animateslideInUp animatefaster animate_delay-100ms">
           <div class="card-body">
 
             <div *ngIf="!!selectedContact; else elseBlock">
@@ -64,77 +72,61 @@
               </div>
 
               <div class="contact-panel-details">
-                <b>Ansprache</b>
-                <span>Herr</span>
-                <i></i>
+                <b class="row-label">speech</b>
+                <span>Mister</span>
+                <div class="edit-icon">
+                  <i class="bi bi-pencil-fill"></i>
+                </div>
 
               </div>
               <div class="contact-panel-details">
-                <b>Name </b>
+                <b class="row-label">Name</b>
                 <span>Herr</span>
                 <i></i>
               </div>
               <div class="contact-panel-details">
-                <b>Nachname</b>
+                <b class="row-label">Last name</b>
                 <span>Mustermann</span>
                 <i></i>
 
               </div>
               <div class="contact-panel-details">
-                <b>Beruf</b>
+                <b class="row-label">Profession</b>
                 <span>Vertrieb</span>
                 <i></i>
 
               </div>
               <div class="contact-panel-details">
-                <b>Handynummer</b>
+                <b class="row-label">Mobile Number</b>
                 <span>+49 15189 42135</span>
                 <i></i>
 
               </div>
               <div class="contact-panel-details">
-                <b>Tel</b>
+                <b class="row-label">Tel</b>
                 <span>07076 24515</span>
                 <i></i>
 
               </div>
               <div class="contact-panel-details">
-                <b>Mail</b>
+                <b class="row-label">Mail</b>
                 <span>max-mustermann@gmail.com</span>
                 <i></i>
               </div>
-              <mat-chip-set>
-                <mat-chip class="travel-list-tag-box travel-list-country-box">
-                  <i class="continent-chip bi bi-globe-americas me-1"></i>
-                  <span class="continent-chip">{{ selectedContact.continent }}</span>
-                </mat-chip>
-              </mat-chip-set>
-              <h1 class="contact-name">{{ selectedContact.contact }}</h1>
-              <h3 class="mt-4">{{ 'contacts-component.lists' | translate }}</h3>
-              <mat-chip-listbox>
-                <mat-chip-option (click)="updateList(list);" [selected]="list.id == selectedContact.list.id"
-                  *ngFor="let list of availableLists">{{ list.name }}</mat-chip-option>
-              </mat-chip-listbox>
-              <h3 class="mt-4">{{ 'contacts-component.tags' | translate }}</h3>
-              <mat-chip-listbox>
-                <mat-chip-option (click)="updateTag(tag);" [selected]="tag.id == selectedContact.tag.id"
-                  *ngFor="let tag of availableTags">{{ tag.name }}</mat-chip-option>
-              </mat-chip-listbox>
-              <h3 class="mt-4">{{ 'contacts-component.notes' | translate }}</h3>
-              <mat-form-field class="w-100">
+              <mat-form-field class="w-100 mt-3">
                 <mat-label>{{ 'contacts-component.notes-placeholder' | translate }}</mat-label>
                 <textarea rows="5" matInput [(ngModel)]="selectedContact.notes"></textarea>
               </mat-form-field>
               <button class="mb-5" (click)="updateNotes(selectedContact.notes)" mat-raised-button color="primary">{{
                 'contacts-component.save-notes' | translate}}</button>
-              <div class="w-100">
+              <!-- <div class="w-100">
                 <button (click)="deleteContact()" class="me-2" mat-raised-button color="warn">{{
                   'contacts-component.delete' | translate}}</button>
                 <button (click)="completeContact(selectedContact, !selectedContact.done)" mat-raised-button
                   color="primary">{{ selectedContact.done ?
                   ('contacts-component.mark-undone' | translate) : ('contacts-component.mark-done'
                   | translate)}}</button>
-              </div>
+              </div>-->
             </div>
 
             <ng-template #elseBlock>
