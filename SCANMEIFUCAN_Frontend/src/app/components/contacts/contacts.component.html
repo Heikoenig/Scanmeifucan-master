@@ -47,6 +47,62 @@
           <div class="card-body">
 
             <div *ngIf="!!selectedContact; else elseBlock">
+              <div class="contact-panel">
+                <div class="contact-panel-avatar">
+                  AB
+                </div>
+                <div class="contact-panel-info">
+                  <span class="name">Name</span>
+                  <span class="description">Name</span>
+                  <mat-chip-set>
+                    <mat-chip class="travel-list-tag-box travel-list-country-box">
+                      <span class="continent-chip">{{ selectedContact.continent }}</span>
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
+                <!-- for Avatar name -->
+              </div>
+
+              <div class="contact-panel-details">
+                <b>Ansprache</b>
+                <span>Herr</span>
+                <i></i>
+
+              </div>
+              <div class="contact-panel-details">
+                <b>Name </b>
+                <span>Herr</span>
+                <i></i>
+              </div>
+              <div class="contact-panel-details">
+                <b>Nachname</b>
+                <span>Mustermann</span>
+                <i></i>
+
+              </div>
+              <div class="contact-panel-details">
+                <b>Beruf</b>
+                <span>Vertrieb</span>
+                <i></i>
+
+              </div>
+              <div class="contact-panel-details">
+                <b>Handynummer</b>
+                <span>+49 15189 42135</span>
+                <i></i>
+
+              </div>
+              <div class="contact-panel-details">
+                <b>Tel</b>
+                <span>07076 24515</span>
+                <i></i>
+
+              </div>
+              <div class="contact-panel-details">
+                <b>Mail</b>
+                <span>max-mustermann@gmail.com</span>
+                <i></i>
+              </div>
               <mat-chip-set>
                 <mat-chip class="travel-list-tag-box travel-list-country-box">
                   <i class="continent-chip bi bi-globe-americas me-1"></i>
