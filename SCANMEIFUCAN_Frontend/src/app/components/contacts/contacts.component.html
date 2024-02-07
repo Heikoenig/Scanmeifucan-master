@@ -6,7 +6,8 @@
         <input type="text" matInput [(ngModel)]="searchText">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-      <button class="mt-2" mat-raised-button color="primary">{{'contacts-component.filter' | translate}}</button>
+      <button class="mt-2 blue-btn" mat-raised-button color="primary">{{'contacts-component.filter' |
+        translate}}</button>
     </div>
 
     <div class="row h-100">
@@ -29,8 +30,7 @@
             <ul class="travel-list mt-3">
               <li class="travel-list-item"
                 [ngClass]="{'active': selectedContact != undefined && selectedContact.id == contact.id}" matRipple
-                *ngFor="let contact of upcomingContacts"
-                (click)="selectListItem(contact)">
+                *ngFor="let contact of upcomingContacts" (click)="selectListItem(contact)">
                 <div class="travel-list-item-panel">
                   <mat-checkbox (ngModelChange)="completeContact(contact, $event)" [(ngModel)]="contact.done"
                     class="list-item-checkbox"></mat-checkbox>
@@ -57,22 +57,26 @@
 
             <div *ngIf="isAddMode; else edit">
               <h2>{{'contacts-component.add-contact' | translate}}</h2>
-              <div class="col-md-12">
-                <webcam
-                  [trigger]="invokeObservable"
-                  (imageCapture)="captureImg($event)"
-                ></webcam>
+              <div class="col-md-12" *ngIf="!sysImage">
+                <webcam [width]="450" [height]="450" [trigger]="invokeObservable" (imageCapture)="captureImg($event)">
+                </webcam>
+              </div>
+              <div class="col-12" *ngIf="sysImage">
+                <!-- <div id="results">Your taken image manifests here...</div> -->
+                <img [src]="webcamImage?.imageAsDataUrl" height="400px" width="450px" />
               </div>
               <div class="col-md-12">
-                <button class="btn btn-danger" (click)="getSnapshot()">
-                  Capture Image
-                </button>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                  <button class="btn blue-btn" mat-raised-button color="primary" (click)="getSnapshot()">
+                    {{ !sysImage? 'Scan' : 'Again Scan' }}
+                  </button>
+                  <button class="btn blue-btn" mat-raised-button color="primary" (click)="saveImage()"
+                    [disabled]="!sysImage">
+                    Next
+                  </button>
+                </div>
               </div>
-              <div class="col-12">
-                <div id="results">Your taken image manifests here...</div>
 
-                <img [src]="webcamImage?.imageAsDataUrl" height="400px" />
-              </div>
             </div>
 
             <ng-template #edit>
@@ -152,16 +156,9 @@
                   <mat-label>{{ 'contacts-component.notes-placeholder' | translate }}</mat-label>
                   <textarea rows="5" matInput [(ngModel)]="selectedContact.notes"></textarea>
                 </mat-form-field>
-                <button class="mb-5" (click)="updateNotes(selectedContact.notes)" mat-raised-button color="primary">{{
+                <button class="mb-5 blue-btn" (click)="updateNotes(selectedContact.notes)" mat-raised-button
+                  color="primary">{{
                   'contacts-component.save-notes' | translate}}</button>
-                <!-- <div class="w-100">
-                  <button (click)="deleteContact()" class="me-2" mat-raised-button color="warn">{{
-                    'contacts-component.delete' | translate}}</button>
-                  <button (click)="completeContact(selectedContact, !selectedContact.done)" mat-raised-button
-                    color="primary">{{ selectedContact.done ?
-                    ('contacts-component.mark-undone' | translate) : ('contacts-component.mark-done'
-                    | translate)}}</button>
-                </div> -->
               </div>
 
               <ng-template #elseBlock>

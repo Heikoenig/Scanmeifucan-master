@@ -118,7 +118,7 @@ export class ContactsComponent {
   }
 
   public selectListItem(contact: IContact) {
-    this.upcomingContacts.map(x=> x.done =false);
+    this.upcomingContacts.map(x => x.done = false);
     this.isAddMode = false;
     contact.done = true;
     this.selectedContact = contact;
@@ -234,7 +234,10 @@ export class ContactsComponent {
   sysImage = '';
 
   public getSnapshot(): void {
-    this.trigger.next(void 0);
+    if (!this.sysImage)
+      this.trigger.next(void 0);
+    else
+      this.sysImage = '';
   }
 
   public captureImg(webcamImage: WebcamImage): void {
@@ -249,5 +252,9 @@ export class ContactsComponent {
 
   public get nextWebcamObservable(): Observable<any> {
     return this.nextWebcam.asObservable();
+  }
+  
+  saveImage(){
+    // call api here
   }
 }
