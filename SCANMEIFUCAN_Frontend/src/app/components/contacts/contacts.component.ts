@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IContact } from 'src/app/models/contact.interface';
-import { IList } from 'src/app/models/list.interface';
-import { ITag } from 'src/app/models/tag.interface';
 import { ContactService } from 'src/app/services/contact.service';
-import { ListsService } from 'src/app/services/lists.service';
-import { TagsService } from 'src/app/services/tags.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import { DetailsDialogComponent } from '../dialogs/details-dialog/details-dialog.component';
@@ -29,15 +25,13 @@ export class ContactsComponent {
  */
   public isLoading: boolean = false;
 
-  public upcomingContacts: ExtractedInformation[] = [];
+  public upcomingContacts: IContact[] = [];
 
-  public selectedContact: ExtractedInformation | undefined;
+  public selectedContact: IContact | undefined;
 
 
   constructor(
     private route: ActivatedRoute,
-    private listsService: ListsService,
-    private tagsService: TagsService,
     private contactsService: ContactService,
     private apiService: ApiService,
     public dialog: MatDialog) {
@@ -57,7 +51,7 @@ export class ContactsComponent {
   public ngOnInit(): void {
   }
 
-  public selectListItem(contact: ExtractedInformation) {
+  public selectListItem(contact: IContact) {
     this.upcomingContacts.map(x => x.done = false);
     this.isAddMode = false;
     contact.done = true;
@@ -68,7 +62,7 @@ export class ContactsComponent {
 
   private getPagedContacts(): void {
     this.apiService.getPagedInformation(1, 20).subscribe(result => {
-      this.upcomingContacts = result.information;
+      this.upcomingContacts = result.contact;
     });
   }
 
@@ -80,7 +74,7 @@ export class ContactsComponent {
     });
   }
 
-  public showDetailsDialog(contact: ExtractedInformation): void {
+  public showDetailsDialog(contact: IContact): void {
     let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     if (width > 1200)
       return;

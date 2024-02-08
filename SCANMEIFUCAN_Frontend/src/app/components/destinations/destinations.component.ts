@@ -94,7 +94,7 @@ export class DestinationsComponent {
   /**
    * Gets upcoming destinations.
    */
-  private getUpcomingDestinations(type: string | undefined = undefined, id: string | undefined = undefined): void {
+  private getUpcomingDestinations(type: string | undefined = undefined, id: string | number | undefined = undefined): void {
     setTimeout(() => {
       this.destinationsService.getUpcomingDestinations(type, id).subscribe(result => {
         this.upcomingDestinations = result.map((val) => {
@@ -111,7 +111,7 @@ export class DestinationsComponent {
   /**
    * Gets upcoming destinations.
    */
-  private getPastDestinations(type: string | undefined = undefined, id: string | undefined = undefined): void {
+  private getPastDestinations(type: string | undefined = undefined, id: string | number | undefined = undefined): void {
     setTimeout(() => {
       this.destinationsService.getPastDestinations(type, id).subscribe(result => {
         this.pastDestinations = result.map((val) => {
