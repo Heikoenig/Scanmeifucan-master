@@ -168,7 +168,7 @@ export class DestinationService {
    * Gets destinations that are marked as done.
    * @returns
    */
-  public getPastDestinations(type: string | undefined = undefined, id: string | undefined = undefined): BehaviorSubject<any[]> {
+  public getPastDestinations(type: string | undefined = undefined, id: number | undefined = undefined): BehaviorSubject<any[]> {
     return this.database![this.databaseKey].find({
       selector: {
         done: {
