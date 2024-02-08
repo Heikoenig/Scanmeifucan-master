@@ -61,7 +61,7 @@ export class ContactsComponent {
 
 
   private getPagedContacts(): void {
-    this.apiService.getPagedInformation(1, 20).subscribe(result => {
+    this.apiService.getPagedInformation(this.pageIndex, this.pageSize).subscribe(result => {
       this.upcomingContacts = result.contact;
     });
   }
@@ -70,6 +70,7 @@ export class ContactsComponent {
     debugger
     this.apiService.deleteInformation(id).subscribe(x => {
       this.selectedContact = undefined;
+      this.pageIndex = 1;
       this.getPagedContacts();
     });
   }
@@ -99,8 +100,7 @@ export class ContactsComponent {
 
   public captureImg(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
-    this.sysImage = webcamImage!.imageAsDataUrl;
-    console.info('got webcam image', this.sysImage);
+    this.sysImage = webcamImage!.imageAsBase64;
   }
 
   public get invokeObservable(): Observable<any> {
@@ -112,6 +112,10 @@ export class ContactsComponent {
   }
 
   saveImage() {
-    // call api here
+    this.apiService.performOcrBase64({ image: this.sysImage })
+      .subscribe(res => {
+        this.pageIndex = 1;
+        this.getPagedContacts();
+      })
   }
 }

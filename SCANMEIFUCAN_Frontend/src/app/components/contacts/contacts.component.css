@@ -29,7 +29,8 @@
 }
 .list-col .card {
     overflow: auto;
-    max-height: 80%;
+    min-height: 60%;
+    max-height: 70%;
     position: relative;
 }
 .inspector-col .card {

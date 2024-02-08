@@ -51,4 +51,7 @@ export class ApiService {
 
     return this.http.post<string>('${this.apiUrl}/ocr', formData);
   }
+  performOcrBase64(body: any): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/ocr`, body);
+  }
 }
