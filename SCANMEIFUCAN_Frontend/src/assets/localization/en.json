@@ -18,8 +18,8 @@
         "recent":"Recent Contacts",
         "loading": "Loading",
         "empty": "It's empty in here",
-        "empty-info": "You don't have any upcoming plans.",
-        "empty-info-past": "You don't have any Contacts."
+        "empty-info": "You don't have any item in list.",
+        "empty-info-past": "You don't have any item in list."
     },
     "contacts-component": {
         "recently-added": "Most Recently Added",
