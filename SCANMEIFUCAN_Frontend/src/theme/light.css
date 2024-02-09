@@ -1,14 +1,14 @@
 :root[data-theme="light"] {
     /** BODY **/
     --body-background-color: white;
-    --accent-color: #fffff;
+    --accent-color: #3FA9F5;
     --body-color: #313131;
     --body-color-variant: black;
 
     /** SIDEBAR **/
     --sidebar-background-color: #3fa9f5;
     --sidebar-color: #ffffff;
-    --sidebar-active-color: #ffffff;
+    --sidebar-active-color: #3FA9F5;
     --sidebar-item-hover-background-color: black;
     --sidebar-header-color: black;
 

@@ -14,32 +14,32 @@ export class ApiService {
   // CRUD operations
 
   // Create a new entry
-  createInformation(contact: IContact): Observable<any> {
+  createContact(contact: IContact): Observable<any> {
     return this.http.post(this.apiUrl, contact);
   }
 
   // Read all entries
-  getAllInformation(): Observable<IContact[]> {
-    return this.http.get<IContact[]>(this.apiUrl);
+  getAllContact(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
   }
 
   // Read a specific entry by ID
-  getInformationById(id: number): Observable<IContact> {
+  getContactById(id: number): Observable<IContact> {
     return this.http.get<IContact>('${this.apiUrl}/${id}');
   }
 
   // Update an entry by ID
-  updateInformation(id: number,  contact: IContact): Observable<any> {
+  updateContact(id: number | any,  contact: IContact): Observable<any> {
     return this.http.put('${this.apiUrl}/${id}', contact);
   }
 
   // Delete an entry by ID
-  deleteInformation(id: number): Observable<any> {
+  deleteContact(id: number): Observable<any> {
     return this.http.delete('${this.apiUrl}/${id}');
   }
 
   // Paged API call
-  getPagedInformation(page: number, perPage: number): Observable<any> {
+  getPagedContact(page: number, perPage: number): Observable<any> {
     const url = '${this.apiUrl}/paged?page=${page}&per_page=${perPage}';
     return this.http.get<any>(url);
   }
