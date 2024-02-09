@@ -1,0 +1,87 @@
+<div class="root-container">
+    <div class="contact-content p-4 container">
+      <div style="display: flex; gap: 10px;">
+        <mat-form-field class="w-50">
+          <mat-label>{{'contacts-component.search-bar-text' | translate}}</mat-label>
+          <input type="text" matInput [(ngModel)]="searchText">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button class="mt-2 blue-btn" mat-raised-button color="primary">{{'contacts-component.filter' |
+          translate}}</button>
+      </div>
+  
+      <div class="row h-100">
+        <div class="col-xl-4 p-2 list-col">
+          <div class="card w-100 p-2 h-100 animate_animated animateslideInUp animate_faster">
+            <div class="card-body">
+              <h2 class="card-header-text">{{ 'contacts-component.recently-added' | translate }}</h2>
+              <div *ngIf="isLoading" class="text-center">
+                <h1 class="animate_animated animatefaster animate_slideInUpBig">{{
+                  'home-component.loading' | translate }}</h1>
+              </div>
+              <div *ngIf="!isLoading && allContacts.length == 0" class="text-center mt-5">
+                <lib-lottie-anim [width]="'250px'" [segments]="[0, 146]" [path]="'assets/animations/schedule-anim.json'"
+                  [autoplay]="true"></lib-lottie-anim>
+                <h1 class="animate_animated animatefaster animate_slideInUpBig">{{
+                  'home-component.empty' | translate }}</h1>
+                <p class="animate_animated animatefaster animateslideInUpBig animate_delay-100ms">
+                  {{ 'home-component.empty-info' | translate }}</p>
+              </div>
+              <ul class="travel-list mt-3" style="height: 100%; overflow: auto;">
+                <li class="travel-list-item"
+                  [ngClass]="{'active': selectedContact != undefined && selectedContact.id == contact.id}" matRipple
+                  *ngFor="let contact of allContacts" (click)="selectListItem(contact)">
+                  <app-contact-item [contact]="contact" (deleteClicked)="deleteContact(contact.id)"> </app-contact-item>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-8 p-2 inspector-col">
+          <div class="card w-100 h-100 p-2 animate_animated animateslideInUp animatefaster animate_delay-100ms">
+            <div class="card-body">
+  
+              <div *ngIf="isAddMode; else edit">
+                <h2>{{'contacts-component.add-contact' | translate}}</h2>
+                <div class="col-md-12" *ngIf="!sysImage">
+                  <webcam [height]="400" [trigger]="invokeObservable" (imageCapture)="captureImg($event)">
+                  </webcam>
+                </div>
+                <div class="col-12" *ngIf="sysImage">
+                  <img [src]="webcamImage?.imageAsDataUrl" height="400px" />
+                </div>
+                <div class="col-md-12">
+                  <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button class="btn blue-btn" mat-raised-button color="primary" (click)="getSnapshot()">
+                      {{ !sysImage? 'Scan' : 'Again Scan' }}
+                    </button>
+                    <button class="btn blue-btn" mat-raised-button color="primary" (click)="saveImage()"
+                      [disabled]="!sysImage">
+                      Next
+                    </button>
+                  </div>
+                  <h2 *ngIf="responseError == true">Error occured: image does not contain name</h2>
+                </div>
+  
+              </div>
+  
+              <ng-template #edit>
+                <div *ngIf="!!selectedContact; else elseBlock">
+                  <app-contact-detail #contactDetail [contact]="selectedContact" (saveChangesClicked)="updateContact($event)"></app-contact-detail>
+                </div>
+  
+                <ng-template #elseBlock>
+                  <h2>Selected contact</h2>
+                  <div class="center-container">
+                    <p class="center-text">Select a contact to view the added information</p>
+                  </div>
+                </ng-template>
+              </ng-template>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
