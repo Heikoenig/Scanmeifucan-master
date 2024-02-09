@@ -21,7 +21,7 @@ import { DestinationService } from './services/destination.service';
 import { DetailsDialogComponent } from './components/dialogs/details-dialog/details-dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { WebcamModule } from 'ngx-webcam';
-
+import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { WebcamModule } from 'ngx-webcam';
     ListDialogComponent,
     TagsDialogComponent,
     DestinationDialogComponent,
-    DetailsDialogComponent
+    DetailsDialogComponent, 
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,

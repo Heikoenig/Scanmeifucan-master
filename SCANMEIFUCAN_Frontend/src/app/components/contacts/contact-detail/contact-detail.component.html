@@ -5,11 +5,11 @@
   <div class="contact-panel-info">
     <span class="name">{{ contact.firstname }} {{ contact.lastname }}</span>
     <span class="description">{{ contact.profession }}</span>
-    <mat-chip-set class="mt-1">
+    <!-- <mat-chip-set class="mt-1">
       <mat-chip class="travel-list-tag-box travel-list-country-box">
         <span class="continent-chip">{{ contact.profession }}</span>
       </mat-chip>
-    </mat-chip-set>
+    </mat-chip-set> -->
   </div>
 
 </div>
@@ -17,61 +17,81 @@
 <div class="contact-panel-details">
   <b class="row-label">Speech</b>
   <span>Mister</span>
-  <div class="edit-icon">
+  <!-- <div class="edit-icon">
     <i class="bi bi-pencil-fill"></i>
-  </div>
-
+  </div> -->
 </div>
+
 <div class="contact-panel-details">
   <b class="row-label">First Name</b>
-  <span>{{ contact.firstname }}</span>
-  <div class="edit-icon">
-    <i class="bi bi-pencil-fill"></i>
+  <mat-form-field *ngIf="editFirstName">
+    <input type="text" matInput [(ngModel)]="contact.firstname">
+  </mat-form-field>
+  <span *ngIf="!editFirstName">{{ contact.firstname }}</span>
+  <div class="edit-icon" *ngIf="!editFirstName">
+    <i class="bi bi-pencil-fill" (click)="editFirstName = true"></i>
   </div>
 </div>
+
 <div class="contact-panel-details">
   <b class="row-label">Last Name</b>
-  <span>{{ contact.lastname }}</span>
-  <div class="edit-icon">
-    <i class="bi bi-pencil-fill"></i>
+  <mat-form-field *ngIf="editLastName">
+    <input type="text" matInput [(ngModel)]="contact.lastname">
+  </mat-form-field>
+  <span *ngIf="!editLastName">{{ contact.lastname }}</span>
+  <div class="edit-icon" *ngIf="!editLastName">
+    <i class="bi bi-pencil-fill" (click)="editLastName = true"></i>
   </div>
-
 </div>
+
 <div class="contact-panel-details">
   <b class="row-label">Profession</b>
-  <span>{{ contact.profession }}</span>
-  <div class="edit-icon">
-    <i class="bi bi-pencil-fill"></i>
+  <mat-form-field *ngIf="editProfession">
+    <input type="text" matInput [(ngModel)]="contact.profession">
+  </mat-form-field>
+  <span *ngIf="!editProfession">{{ contact.profession }}</span>
+  <div class="edit-icon" *ngIf="!editProfession">
+    <i class="bi bi-pencil-fill" (click)="editProfession = true"></i>
   </div>
 
 </div>
+
 <div class="contact-panel-details">
   <b class="row-label">Mobile Number</b>
-  <span>{{ contact.mobile }}</span>
-  <div class="edit-icon">
-    <i class="bi bi-pencil-fill"></i>
+  <mat-form-field *ngIf="editMobile">
+    <input type="text" matInput [(ngModel)]="contact.mobile">
+  </mat-form-field>
+  <span *ngIf="!editMobile">{{ contact.mobile }}</span>
+  <div class="edit-icon" *ngIf="!editMobile">
+    <i class="bi bi-pencil-fill" (click)="editMobile = true"></i>
   </div>
-
 </div>
+
 <div class="contact-panel-details">
   <b class="row-label">Tel</b>
-  <span>{{ contact.tel}}</span>
-  <div class="edit-icon">
-    <i class="bi bi-pencil-fill"></i>
+  <mat-form-field *ngIf="editTel">
+    <input type="text" matInput [(ngModel)]="contact.tel">
+  </mat-form-field>
+  <span *ngIf="!editTel">{{ contact.tel}}</span>
+  <div class="edit-icon" *ngIf="!editTel">
+    <i class="bi bi-pencil-fill" (click)="editTel = true"></i>
   </div>
 
 </div>
 <div class="contact-panel-details">
   <b class="row-label">Mail</b>
-  <span>{{contact.email }}</span>
-  <div class="edit-icon">
-    <i class="bi bi-pencil-fill"></i>
+  <mat-form-field *ngIf="editEmail">
+    <input type="email" matInput [(ngModel)]="contact.email">
+  </mat-form-field>
+  <span *ngIf="!editEmail">{{contact.email }}</span>
+  <div class="edit-icon" *ngIf="!editEmail">
+    <i class="bi bi-pencil-fill" (click)="editEmail = true"></i>
   </div>
 </div>
 
-<mat-form-field class="w-100 mt-3">
+<mat-form-field class="w-100 mt-2">
   <mat-label>{{ 'contacts-component.notes-placeholder' | translate }}</mat-label>
-  <textarea rows="5" matInput [(ngModel)]="contact.notes"></textarea>
+  <textarea rows="3" matInput [(ngModel)]="contact.notes"></textarea>
 </mat-form-field>
-<button class="mb-5 blue-btn" mat-raised-button color="primary">{{
+<button class="mb-1 blue-btn" mat-raised-button color="primary" (click)="this.saveChangesClicked.emit(contact)">{{
   'contacts-component.save-notes' | translate}}</button>

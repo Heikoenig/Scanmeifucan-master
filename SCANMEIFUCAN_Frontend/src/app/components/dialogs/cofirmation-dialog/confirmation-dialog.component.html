@@ -1,0 +1,11 @@
+<!-- confirmation-dialog.component.html -->
+<div class="center-container-confirm center-text-confirm">
+    <h1 mat-dialog-title>{{ data.title }}</h1>
+    <div mat-dialog-content>
+      <p>{{ data.message }}</p>
+    </div>
+    <div mat-dialog-actions class="center-container-confirm center-text-confirm">
+      <button class="black-btn" mat-raised-button color="primary" (click)="dialogRef.close(false)">Cancel</button>
+      <button class="blue-btn" mat-raised-button color="primary" (click)="dialogRef.close(true)">OK</button>
+    </div>
+</div>
