@@ -17,7 +17,7 @@ import { ExtractedInformation } from 'src/app/models/extracted-Information.inter
 })
 export class ContactsComponent {
 
-
+responseError: boolean = false;
   public searchText: string = '';
   public isAddMode: boolean = false;
   /**
@@ -112,10 +112,16 @@ export class ContactsComponent {
   }
 
   saveImage() {
+    this.responseError = false;
     this.apiService.performOcrBase64({ image: this.sysImage })
-      .subscribe(res => {
+    .subscribe((res: any) => {
+      if (res.status == 200) {
+        this.sysImage = '';
         this.pageIndex = 1;
         this.getPagedContacts();
+      }else{
+        this.responseError = true;
+      }
       })
   }
 }

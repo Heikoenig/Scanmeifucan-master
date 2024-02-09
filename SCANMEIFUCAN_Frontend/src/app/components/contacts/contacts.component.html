@@ -37,7 +37,6 @@
           </div>
         </div>
       </div>
-      <!-- Contact inspector -->
       <div class="col-xl-8 p-2 inspector-col">
         <div class="card w-100 h-100 p-2 animate__animated animate__slideInUp animate__faster animate__delay-100ms">
           <div class="card-body">
@@ -60,6 +59,7 @@
                     [disabled]="!sysImage">
                     Next
                   </button>
+                  <h2 *ngif="responseError">Error occured: image does not contain name</h2>
                 </div>
               </div>
 
@@ -67,83 +67,7 @@
 
             <ng-template #edit>
               <div *ngIf="!!selectedContact; else elseBlock">
-                <div class="contact-panel">
-                  <div class="contact-panel-avatar">
-                    {{ selectedContact.avatar }}
-                  </div>
-                  <div class="contact-panel-info">
-                    <span class="name">{{ selectedContact.firstname }} {{ selectedContact.lastname }}</span>
-                    <span class="description">{{ selectedContact.profession }}</span>
-                    <mat-chip-set class="mt-1">
-                      <mat-chip class="travel-list-tag-box travel-list-country-box">
-                        <span class="continent-chip">{{ selectedContact.profession }}</span>
-                      </mat-chip>
-                    </mat-chip-set>
-                  </div>
-
-                </div>
-
-                <div class="contact-panel-details">
-                  <b class="row-label">Speech</b>
-                  <span>Mister</span>
-                  <div class="edit-icon">
-                    <i class="bi bi-pencil-fill"></i>
-                  </div>
-
-                </div>
-                <div class="contact-panel-details">
-                  <b class="row-label">First Name</b>
-                  <span>{{ selectedContact.firstname }}</span>
-                  <div class="edit-icon">
-                    <i class="bi bi-pencil-fill"></i>
-                  </div>
-                </div>
-                <div class="contact-panel-details">
-                  <b class="row-label">Last Name</b>
-                  <span>{{ selectedContact.lastname }}</span>
-                  <div class="edit-icon">
-                    <i class="bi bi-pencil-fill"></i>
-                  </div>
-
-                </div>
-                <div class="contact-panel-details">
-                  <b class="row-label">Profession</b>
-                  <span>{{ selectedContact.profession }}</span>
-                  <div class="edit-icon">
-                    <i class="bi bi-pencil-fill"></i>
-                  </div>
-
-                </div>
-                <div class="contact-panel-details">
-                  <b class="row-label">Mobile Number</b>
-                  <span>{{ selectedContact.mobile }}</span>
-                  <div class="edit-icon">
-                    <i class="bi bi-pencil-fill"></i>
-                  </div>
-
-                </div>
-                <div class="contact-panel-details">
-                  <b class="row-label">Tel</b>
-                  <span>{{ selectedContact.tel}}</span>
-                  <div class="edit-icon">
-                    <i class="bi bi-pencil-fill"></i>
-                  </div>
-
-                </div>
-                <div class="contact-panel-details">
-                  <b class="row-label">Mail</b>
-                  <span>{{selectedContact.email }}</span>
-                  <div class="edit-icon">
-                    <i class="bi bi-pencil-fill"></i>
-                  </div>
-                </div>
-
-                <mat-form-field class="w-100 mt-3">
-                  <mat-label>{{ 'contacts-component.notes-placeholder' | translate }}</mat-label>
-                  <textarea rows="5" matInput [(ngModel)]="selectedContact.notes"></textarea>
-                </mat-form-field>
-                <button class="mb-5 blue-btn" mat-raised-button color="primary">{{
-                  'contacts-component.save-notes' | translate}}</button>
+                <app-contact-detail [contact]="selectedContact"></app-contact-detail>
               </div>
 
               <ng-template #elseBlock>
