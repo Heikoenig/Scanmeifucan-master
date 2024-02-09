@@ -1,16 +1,15 @@
 :root[data-theme="light"] {
     /** BODY **/
     --body-background-color: white;
-    --accent-color: #3FA9F5;
+    --accent-color: #29a2f8;
     --body-color: #313131;
     --body-color-variant: black;
 
     /** SIDEBAR **/
-    --sidebar-background-color: #3fa9f5;
-    --sidebar-color: #ffffff;
-    --sidebar-active-color: #3FA9F5;
-    --sidebar-item-hover-background-color: black;
-    --sidebar-header-color: black;
+    --sidebar-background-color: #3FA9F5;
+    --sidebar-color: #fff;
+    --sidebar-active-color: #black;
+    --sidebar-item-hover-background-color: #57b6fa;
 
     /** TRAVEL LIST **/
     --travel-list-item-background: #eeeeee;

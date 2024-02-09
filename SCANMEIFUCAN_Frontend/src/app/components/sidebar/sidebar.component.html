@@ -10,7 +10,7 @@
       class="sidebar-menu-item animate_animated animatefaster animate_slideInUpBig" [routerLinkActive]="'active'"
       matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
       <div class="sidebar-menu-item-container">
-        <i class="bi bi-houses-fill"></i>
+        <i class="eicon eicon-home"></i>
         {{ 'sidebar-component.home-page' | translate }}
       </div>
     </li>
@@ -41,25 +41,6 @@
         {{ 'sidebar-component.export' | translate }}
       </div>
     </li>
-<!--
-    <li (click)="closeSidebar()" [routerLink]="'destinations'" id="list-item"
-      class="sidebar-menu-item animate_animated animatefaster animateslideInUpBig animate_delay-100ms"
-      [routerLinkActive]="'active'" matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
-      <div class="sidebar-menu-item-container">
-        <i class="bi bi-grid-1x2-fill"></i>
-        {{ 'sidebar-component.dest-page' | translate }} <span *ngIf="destinationCount > 0"
-          class="badge text-bg-secondary animate_animated animatefaster animate_slideInUpBig">{{ destinationCount
-          }}</span>
-      </div>
-    </li>
-    <li (click)="closeSidebar()" [routerLink]="'privacy'" id="privacy-item"
-      class="sidebar-menu-item animate_animated animatefaster animateslideInUpBig animate_delay-200ms"
-      [routerLinkActive]="'active'" matRipple [matRippleCentered]="false" [matRippleColor]="'rgba(0, 255, 0, 0.1)'">
-      <div class="sidebar-menu-item-container">
-        <i class="bi bi-shield-fill"></i>
-        {{ 'sidebar-component.privacy-page' | translate }}
-      </div>
-    </li> -->
   </ul>
 
   <!-- Theme toggler -->
@@ -74,10 +55,10 @@
         </div>
       </li>
     </ul>
-    <div class="wrapper">
+   <!--<div class="wrapper">
       <button mat-raised-button [color]="this.isLightTheme ? '' : 'primary'" (click)="toggleTheme(!this.isLightTheme);">
         {{ 'sidebar-component.toggle-theme' | translate }}
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
