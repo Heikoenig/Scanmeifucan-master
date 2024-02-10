@@ -7,8 +7,6 @@ import { ContactItemComponent } from './contact-item/contact-item.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 
-
-
 @NgModule({
   declarations: [
     ContactsComponent,

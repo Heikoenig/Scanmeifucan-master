@@ -10,6 +10,7 @@ import { IContact } from 'src/app/models/contact.interface';
 export class ContactDetailComponent {
   @Input() contact!: IContact;
   @Output() saveChangesClicked: EventEmitter<IContact> = new EventEmitter();
+
   public editTitle: boolean = false;
   public editFirstName: boolean = false;
   public editLastName: boolean = false;
@@ -18,7 +19,7 @@ export class ContactDetailComponent {
   public editMobile: boolean = false;
   public editTel: boolean = false;
 
-  public resetEditState(){
+  public resetEditState() {
     this.editTitle = false
     this.editFirstName = false;
     this.editLastName = false;

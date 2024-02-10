@@ -26,13 +26,15 @@ export class ContactsComponent {
  * Gets or sets if data is being loaded.
  */
   public isLoading: boolean = false;
+
   public allContacts: IContact[] = [];
   public groupedContacts: { createdon: string; contacts: any[] }[] = [];
+
   public selectedContact: IContact | undefined;
 
 
   constructor(
-    private route: Router,
+    private router: Router,
     private route: ActivatedRoute,
     private contactsService: ContactService,
     private apiService: ApiService,
@@ -69,11 +71,11 @@ export class ContactsComponent {
 
     this.groupedContacts = grouped;
   }
-
   private getAllContacts(): void {
     this.apiService.getAllContact().subscribe((result: any) => {
       this.allContacts = result.contact;
       this.groupContactsByDate();
+
     });
   }
 
@@ -92,6 +94,7 @@ export class ContactsComponent {
   }
 
   public showDetailsDialog(contact: IContact): void {
+
   }
 
 
@@ -129,15 +132,15 @@ export class ContactsComponent {
         this.pageIndex = 1;
         this.getAllContacts();
         this.router.navigateByUrl('/home');
-      })
+      }, ((err: any)=>{
+        this.responseError = true;
+      }))
   }
 
   updateContact(event:IContact){
     this.apiService.updateContact(event.id, event).subscribe(res=>{
       this.contactDetail?.resetEditState();
       this.getAllContacts();
-    }, ((err: any)=>{
-      this.responseError = true;
-    }))
+    })
   }
 }

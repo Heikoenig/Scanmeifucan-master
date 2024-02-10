@@ -50,6 +50,7 @@ export class DestinationDialogComponent {
     private tagsService: TagsService,
     public dialogRef: MatDialogRef<DestinationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+
     this.initializeDialog();
   }
 
@@ -60,6 +61,7 @@ export class DestinationDialogComponent {
       this.availableLists = result.map((item) => {
         return item._data;
       })
+      console.log(this.availableLists);
     });
 
     this.tagsService.getTags().subscribe(result => {
@@ -72,8 +74,32 @@ export class DestinationDialogComponent {
   /**
    * Closes currently opened dialog.
    */
-  public closeDialog(dialogResult: any = undefined): void {
-    this.dialogRef.close(dialogResult);
+  public closeDialog(): void {
+    this.dialogRef.close();
+  }
+
+  /**
+   * Saves destination to database.
+   */
+  public saveDestination(): void {
+    // Check if required fields are provided.
+    if (this.destinationName == '' || this.continentName == '' ||
+      this.tag == undefined || this.list == undefined) {
+      return;
+    }
+
+    this.destinationsService.addDestination({
+      id: Guid.newGuid().toString(),
+      createdAt: moment().format('DD.MM.yyyy hh:mm:ss'),
+      destination: this.destinationName,
+      done: false,
+      tag: this.tag!,
+      list: this.list!,
+      continent: this.continentName!,
+      notes: ''
+    });
+
+    this.closeDialog();
   }
 
   /**
@@ -87,28 +113,5 @@ export class DestinationDialogComponent {
     }
 
     return true;
-  }
-
-  /**
-   * Saves destination to database.
-   */
-  public saveDestination(): void {
-    // Check if required fields are provided.
-    if (this.canSave() == false) {
-      return;
-    }
-
-    let dest = {
-      id: Guid.newGuid().toString(),
-      createdAt: moment().format('DD.MM.yyyy hh:mm:ss'),
-      destination: this.destinationName,
-      done: false,
-      tag: this.tag!,
-      list: this.list!,
-      continent: this.continentName!,
-      notes: ''
-    };
-    this.destinationsService.addDestination(dest);
-    this.closeDialog(dest);
   }
 }

@@ -15,65 +15,54 @@ import { DetailsDialogComponent } from '../dialogs/details-dialog/details-dialog
   templateUrl: './destinations.component.html',
   styleUrls: ['./destinations.component.css']
 })
-export class DestinationsComponent {
 
+export class DestinationsComponent {
   /**
  * Gets or sets if data is being loaded.
  */
   public isLoading: boolean = false;
-
   /**
    * Gets or sets list of all available lists.
    */
   public availableLists: IList[] = [];
-
   /**
    * Gets or sets list if all available tags.
    */
   public availableTags: ITag[] = [];
-
   /**
    * Gets or sets list of upcoming destinations.
    */
   public upcomingDestinations: IDestination[] = [];
-
   /**
  * Gets or sets list of upcoming destinations.
  */
   public pastDestinations: IDestination[] = [];
-
   /**
    * Gets or sets selected destination.
    */
   public selectedDestination: IDestination | undefined;
-
   constructor(
     private route: ActivatedRoute,
     private listsService: ListsService,
     private tagsService: TagsService,
     private destinationsService: DestinationService,
     public dialog: MatDialog) {
-
-    // Check passed query params to check if we 
+    // Check passed query params to check if we
     // need to load all destinations or from specified list / tag.
     this.route.queryParams.subscribe(params => {
       this.isLoading = true;
       let type = params['type'];
       let id = params['id'];
-
       this.selectedDestination = undefined;
+
       this.initializeData(type, id);
     });
   }
-
   public ngOnInit(): void {
   }
-
   private initializeData(type: string | undefined = undefined, id: string | undefined = undefined): void {
     this.getUpcomingDestinations(type, id);
     this.getPastDestinations(type, id);
-
-
     setTimeout(() => {
       this.listsService.getLists().subscribe(result => {
         this.availableLists = result.map((item) => {
@@ -81,7 +70,6 @@ export class DestinationsComponent {
         })
       });
     }, this.listsService.isInitialized ? 0 : 1000);
-
     setTimeout(() => {
       this.tagsService.getTags().subscribe(result => {
         this.availableTags = result.map((item) => {
@@ -90,17 +78,16 @@ export class DestinationsComponent {
       });
     }, this.tagsService.isInitialized ? 0 : 1000);
   }
-
-  /**
+   /**
    * Gets upcoming destinations.
    */
-  private getUpcomingDestinations(type: string | undefined = undefined, id: string | number | undefined = undefined): void {
+   private getUpcomingDestinations(type: string | undefined = undefined, id: string | number | undefined = undefined): void {
     setTimeout(() => {
       this.destinationsService.getUpcomingDestinations(type, id).subscribe(result => {
         this.upcomingDestinations = result.map((val) => {
           return val._data;
         });
-  
+
         if(type != undefined) {
           this.upcomingDestinations = this.upcomingDestinations.filter(x => type == 'list' ? (x.list.id == id) : (x.tag.id == id));
         }
@@ -111,13 +98,13 @@ export class DestinationsComponent {
   /**
    * Gets upcoming destinations.
    */
-  private getPastDestinations(type: string | undefined = undefined, id: string | number | undefined = undefined): void {
+  private getPastDestinations(type: string | undefined = undefined, id: string  | number | undefined = undefined): void {
     setTimeout(() => {
       this.destinationsService.getPastDestinations(type, id).subscribe(result => {
         this.pastDestinations = result.map((val) => {
           return val._data;
         });
-  
+
         if(type != undefined) {
           this.pastDestinations = this.pastDestinations.filter(x => type == 'list' ? (x.list.id == id) : (x.tag.id == id));
         }
@@ -125,14 +112,13 @@ export class DestinationsComponent {
       this.isLoading = false;
     }, this.destinationsService.isInitialized ? 0 : 1000);
   }
-
   /**
    * Deletes selected destination.
    */
   public deleteDestination(): void {
     this.destinationsService.deleteDestination(this.selectedDestination!);
-  }
 
+  }
   /**
    * Completes selected destination.
    */
@@ -143,28 +129,25 @@ export class DestinationsComponent {
 
   /**
    * Sets tag for the destination.
-   * @param tag 
+   * @param tag
    */
   public updateTag(tag: ITag): void {
     this.destinationsService.setTag(this.selectedDestination!, tag);
   }
-
   /**
    * Sets list for the destination.
-   * @param list 
+   * @param list
    */
   public updateList(list: IList): void {
     this.destinationsService.setList(this.selectedDestination!, list);
   }
-
   /**
    * Sets notes for the destination.
-   * @param list 
+   * @param list
    */
   public updateNotes(newValue: string): void {
     this.destinationsService.setNotes(this.selectedDestination!, newValue);
   }
-
   /**
    * Shows details dialog about selected destination
    * if display is in narrow mode.
@@ -173,7 +156,6 @@ export class DestinationsComponent {
     let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     if(width > 1200)
       return;
-
     this.dialog.open(DetailsDialogComponent, {
       data: { destination: destination}
     });

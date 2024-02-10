@@ -1,91 +1,90 @@
 <div class="root-container">
-    <div class="contact-content p-4 container">
-      <div style="display: flex; gap: 10px;">
-        <mat-form-field class="w-50">
-          <mat-label>{{'contacts-component.search-bar-text' | translate}}</mat-label>
-          <input type="text" matInput [(ngModel)]="searchText">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <button class="mt-2 roundbutton-btn" mat-raised-button color="primary">{{'contacts-component.filter' |
-          translate}}</button>
-      </div>
-  
-      <div class="row">
-        <div class="col-xl-5 p-2 list-col">
-          <div class="card w-100 p-2 animate_animated animateslideInUp animate_faster">
-            <div class="card-body">
-              <h2 class="card-header-text">{{ 'contacts-component.recently-added' | translate }}</h2>
-              <div *ngIf="isLoading" class="text-center">
-                <h1 class="animate_animated animatefaster animate_slideInUpBig">{{
-                  'home-component.loading' | translate }}</h1>
-              </div>
-              <div *ngIf="!isLoading && allContacts.length == 0" class="text-center mt-5">
-                <lib-lottie-anim [width]="'250px'" [segments]="[0, 146]" [path]="'assets/animations/schedule-anim.json'"
-                  [autoplay]="true"></lib-lottie-anim>
-                <h1 class="animate_animated animatefaster animate_slideInUpBig">{{
-                  'home-component.empty' | translate }}</h1>
-                <p class="animate_animated animatefaster animateslideInUpBig animate_delay-100ms">
-                  {{ 'home-component.empty-info' | translate }}</p>
-              </div>
-              <ul class="travel-list mt-3">
-                <ng-container *ngFor="let group of groupedContacts">
-                  <li class="group-date" *ngIf="group.contacts.length > 0">Created on {{ group.createdon }}</li>
-                  <li class="travel-list-item" *ngFor="let contact of group.contacts"
-                    [ngClass]="{'active': selectedContact != undefined && selectedContact.id == contact.id}" matRipple
-                    (click)="selectListItem(contact)">
-                    <app-contact-item [contact]="contact" (deleteClicked)="deleteContact(contact.id)"> </app-contact-item>
-                  </li>
-                </ng-container>
-              </ul>
+  <div class="contact-content p-4 container h-100">
+    <div style="display: flex; gap: 10px;">
+      <mat-form-field class="w-50">
+        <mat-label>{{'contacts-component.search-bar-text' | translate}}</mat-label>
+        <input type="text" matInput [(ngModel)]="searchText">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <button class="mt-2 round-btn" mat-raised-button color="primary">{{'contacts-component.filter' |
+        translate}}</button>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-5 p-2 list-col">
+        <div class="card w-100 p-2 animate__animated animate__slideInUp animate__faster">
+          <div class="card-body">
+            <h2 class="card-header-text">{{ 'contacts-component.recently-added' | translate }}</h2>
+            <div *ngIf="isLoading" class="text-center">
+              <h1 class="animate__animated animate__faster animate__slideInUpBig">{{
+                'home-component.loading' | translate }}</h1>
             </div>
+            <div *ngIf="!isLoading && allContacts.length == 0" class="text-center mt-5">
+              <lib-lottie-anim [width]="'250px'" [segments]="[0, 146]" [path]="'assets/animations/schedule-anim.json'"
+                [autoplay]="true"></lib-lottie-anim>
+              <h1 class="animate__animated animate__faster animate__slideInUpBig">{{
+                'home-component.empty' | translate }}</h1>
+              <p class="animate__animated animate__faster animate__slideInUpBig animate__delay-100ms">
+                {{ 'home-component.empty-info' | translate }}</p>
+            </div>
+            <ul class="travel-list mt-3">
+              <ng-container *ngFor="let group of groupedContacts">
+                <li class="group-date" *ngIf="group.contacts.length > 0">Created on {{ group.createdon }}</li>
+                <li class="travel-list-item" *ngFor="let contact of group.contacts"
+                  [ngClass]="{'active': selectedContact != undefined && selectedContact.id == contact.id}" matRipple
+                  (click)="selectListItem(contact)">
+                  <app-contact-item [contact]="contact" (deleteClicked)="deleteContact(contact.id)"> </app-contact-item>
+                </li>
+              </ng-container>
+            </ul>
           </div>
         </div>
-  
-        <div class="col-xl-7 p-2 inspector-col">
-          <div class="card w-100 p-2 animate_animated animateslideInUp animatefaster animate_delay-100ms">
-            <div class="card-body">
-  
-              <div *ngIf="isAddMode; else edit">
-                <h2>{{'contacts-component.add-contact' | translate}}</h2>
-                <div class="col-md-12" *ngIf="!sysImage">
-                  <webcam [height]="400" [trigger]="invokeObservable" (imageCapture)="captureImg($event)">
-                  </webcam>
-                </div>
-                <div class="col-12" *ngIf="sysImage">
-                  <img [src]="webcamImage?.imageAsDataUrl" height="400px" />
-                </div>
-                <div class="col-md-12">
-                  <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <button class="btn blue-btn" mat-raised-button color="primary" (click)="getSnapshot()">
-                      {{ !sysImage? 'Scan' : 'Again Scan' }}
-                    </button>
-                    <button class="btn blue-btn" mat-raised-button color="primary" (click)="saveImage()"
-                      [disabled]="!sysImage">
-                      Next
-                    </button>
-                  </div>
-                  <h2 *ngIf="responseError == true">Error occured: image does not contain name</h2>
-                </div>
-  
+      </div>
+
+      <div class="col-xl-7 p-2 inspector-col">
+        <div class="card w-100  p-2 animate__animated animate__slideInUp animate__faster animate__delay-100ms">
+          <div class="card-body">
+            <div *ngIf="isAddMode; else edit">
+              <h2>{{'contacts-component.add-contact' | translate}}</h2>
+              <div class="col-md-12" *ngIf="!sysImage">
+                <webcam [height]="400" [trigger]="invokeObservable" (imageCapture)="captureImg($event)">
+                </webcam>
               </div>
-  
-              <ng-template #edit>
-                <div *ngIf="!!selectedContact; else elseBlock">
-                  <app-contact-detail #contactDetail [contact]="selectedContact" 
-                  (saveChangesClicked)="updateContact($event)"></app-contact-detail>
+              <div class="col-12" *ngIf="sysImage">
+                <img [src]="webcamImage?.imageAsDataUrl" height="400px" />
+              </div>
+              <div class="col-md-12">
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                  <button class="btn blue-btn" mat-raised-button color="primary" (click)="getSnapshot()">
+                    {{ !sysImage? 'Scan' : 'Again Scan' }}
+                  </button>
+                  <button class="btn blue-btn" mat-raised-button color="primary" (click)="saveImage()"
+                    [disabled]="!sysImage">
+                    Next
+                  </button>
                 </div>
-  
-                <ng-template #elseBlock>
-                  <h2>Selected contact</h2>
-                  <div class="center-container">
-                    <p class="center-text">Select a contact to view the added information</p>
-                  </div>
-                </ng-template>
-              </ng-template>
-  
+                <h2 *ngIf="responseError == true">Error occured: image does not contain name</h2>
+              </div>
+
             </div>
+
+            <ng-template #edit>
+              <div *ngIf="!!selectedContact; else elseBlock">
+                <app-contact-detail #contactDetail [contact]="selectedContact"
+                  (saveChangesClicked)="updateContact($event)"></app-contact-detail>
+              </div>
+
+              <ng-template #elseBlock>
+                <h2>Selected contact</h2>
+                <div class="center-container">
+                  <p class="center-text">Select a contact to view the added information</p>
+                </div>
+              </ng-template>
+            </ng-template>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

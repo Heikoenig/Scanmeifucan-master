@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 
@@ -25,7 +25,7 @@ export class LottieAnimComponent {
    * Gets or sets animation options.
    */
   public options: AnimationOptions | null;
-  
+
   /**
    * Gets or sets path to the animation file.
    */
@@ -45,7 +45,7 @@ export class LottieAnimComponent {
    * Gets or sets if animation should be looped.
    */
   @Input() loop: boolean = false;
-  
+
   /**
    * Gets or sets segments. 
    * First number is starting segment
@@ -57,11 +57,6 @@ export class LottieAnimComponent {
    * Gets or sets if animation should be automatically played.
    */
   @Input() autoplay: boolean = true;
-
-  /**
-   * Event emitter that is fired when animation finishes.
-   */
-  @Output() animCompleted: EventEmitter<any> = new EventEmitter();
 
   constructor(private ngZone: NgZone) {
     this.options = null;
@@ -83,7 +78,6 @@ export class LottieAnimComponent {
    */
   public completed(): void {
     this.isCompleted = true;
-    this.animCompleted?.emit();
   }
 
   /**

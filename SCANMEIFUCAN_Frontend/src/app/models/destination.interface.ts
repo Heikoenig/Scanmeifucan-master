@@ -2,6 +2,7 @@ import { IItemBase } from "./item-base.interface";
 import { IList } from "./list.interface";
 import { ITag } from "./tag.interface";
 
+
 /**
  * Model that represents destination.
  */
@@ -19,8 +20,8 @@ export interface IDestination extends IItemBase {
     /**
      * Gets or sets date of creation.
      */
-    createdAt: string;
-    
+    createdAt: String;
+
     /**
      * Gets or sets destination tag.
      */
@@ -35,6 +36,7 @@ export interface IDestination extends IItemBase {
      * Gets or sets if destination has been marked as done / visited.
      */
     done: boolean;
+
 
     /**
      * Gets or sets notes about destination.

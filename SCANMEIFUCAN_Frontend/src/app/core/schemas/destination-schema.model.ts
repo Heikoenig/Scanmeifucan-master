@@ -6,7 +6,7 @@ import { ITag } from "src/app/models/tag.interface";
 /**
  * Collection schema for destinations.
  */
-export const destinationsSchema: RxJsonSchema<IDestination>  = {
+export const destinationsSchema: RxJsonSchema<IDestination> = {
     title: 'destinations schema',
     version: 0,
     primaryKey: 'id',
@@ -34,9 +34,12 @@ export const destinationsSchema: RxJsonSchema<IDestination>  = {
         done: {
             type: 'boolean'
         },
+
         notes: {
             type: 'string'
         }
+        
     },
     required: ['id', 'destination', 'continent', 'createdAt', 'tag', 'list', 'done', 'notes']
 }
+

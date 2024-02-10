@@ -3,21 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
-
+import { LottieAnimModule } from 'lottie-anim';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from './modules/shared.module';
+import { SharedModule } from './modules/shared/shared.module';
 import { ListDialogComponent } from './components/dialogs/list-dialog/list-dialog.component';
 import { TagsDialogComponent } from './components/dialogs/tags-dialog/tags-dialog.component';
 import { DestinationDialogComponent } from './components/dialogs/destination-dialog/destination-dialog.component';
 import { ListsService } from './services/lists.service';
 import { TagsService } from './services/tags.service';
 import { DestinationService } from './services/destination.service';
+import { ContactService } from './services/contact.service';
 import { DetailsDialogComponent } from './components/dialogs/details-dialog/details-dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { WebcamModule } from 'ngx-webcam';
@@ -31,7 +31,7 @@ import { ContactDetailDialogComponent } from './components/dialogs/contact-detai
     ListDialogComponent,
     TagsDialogComponent,
     DestinationDialogComponent,
-    DetailsDialogComponent, 
+    DetailsDialogComponent,
     ConfirmationDialogComponent,
     ContactDetailDialogComponent
   ],
@@ -58,19 +58,15 @@ import { ContactDetailDialogComponent } from './components/dialogs/contact-detai
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
-  constructor(
-    private listsService: ListsService,
-    private tagsService: TagsService,
-    private destinationsService: DestinationService) {
-  }
-}
+export class AppModule {
 
+}
 // AoT requires an exported function for factories.
 // Localization will be loaded from assets/localization folder.
 // Naming scheme: en.json | de.json | fr.json

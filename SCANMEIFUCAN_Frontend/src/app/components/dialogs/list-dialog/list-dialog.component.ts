@@ -22,11 +22,30 @@ export class ListDialogComponent {
   /**
    * Closes currently opened dialog.
    */
-  public closeDialog(dialogResult: any = undefined): void {
-    this.dialogRef.close(dialogResult);
+  public closeDialog(): void {
+    this.dialogRef.close();
+  }
+  
+  /**
+   * Creates new list and saves it to database.
+   */
+  public createList(): void {
+    // Check if list with the same name already exists.
+    this.listsSerivice.getListsByName(this.name).subscribe(result => {
+      if(result != null || result != undefined) {
+        return;
+      }
+
+      this.listsSerivice.addList({
+        id: Guid.newGuid().toString(),
+        name: this.name
+      });
+
+      this.closeDialog();
+    });
   }
 
-  /**
+    /**
    * Gets if list can be saved.
    * @returns 
    */
@@ -36,27 +55,5 @@ export class ListDialogComponent {
     }
 
     return true;
-  }
-
-  /**
-   * Creates new list and saves it to database.
-   */
-  public createList(): void {
-    if (this.canSave() == false)
-      return;
-
-    // Check if list with the same name already exists.
-    this.listsSerivice.getListsByName(this.name).subscribe(result => {
-      if (result != null || result != undefined) {
-        return;
-      }
-
-      let list = {
-        id: Guid.newGuid().toString(),
-        name: this.name
-      };
-      this.listsSerivice.addList(list);
-      this.closeDialog(list);
-    });
   }
 }

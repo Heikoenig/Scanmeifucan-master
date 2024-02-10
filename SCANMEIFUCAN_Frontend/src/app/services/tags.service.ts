@@ -10,7 +10,7 @@ import { ITag } from '../models/tag.interface';
   providedIn: 'root'
 })
 export class TagsService {
-  /**
+    /**
  * Gets or sets if service has been initialized.
  */
   public isInitialized: boolean = false;
@@ -40,8 +40,8 @@ export class TagsService {
         schema: tagsSchema
       }
     });
-
     this.isInitialized = true;
+
   }
 
   /**

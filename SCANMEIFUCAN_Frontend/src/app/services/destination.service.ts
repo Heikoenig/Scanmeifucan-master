@@ -8,46 +8,39 @@ import { RxDBUpdatePlugin } from 'rxdb/plugins/update';
 import { ITag } from '../models/tag.interface';
 import { IList } from '../models/list.interface';
 addRxPlugin(RxDBUpdatePlugin);
-
 @Injectable({
   providedIn: 'root'
 })
 export class DestinationService {
-  /**
+      /**
    * Gets or sets if service has been initialized.
    */
   public isInitialized: boolean = false;
 
-
   private readonly databaseKey: string = 'destinations';
-
   /**
    * Database that holds destinations.
    */
   private database: RxDatabase | undefined;
   private collection: { destinations: RxCollection } | undefined;
-
-  constructor() { 
+  constructor() {
     this.setupDatabase();
   }
-
   private async setupDatabase(): Promise<void> {
     // Creates new database.
     this.database = await createRxDatabase({
       name: this.databaseKey,
       storage: getRxStorageDexie()
     });
-
     // Creates collection in the database with given schema.
     this.collection = await this.database.addCollections({
       destinations: {
         schema: destinationsSchema
       }
     });
-
     this.isInitialized = true;
-  }
 
+  }
   /**
    * Adds new destination to database.
    * @param destination
@@ -55,7 +48,6 @@ export class DestinationService {
   public async addDestination(destination: IDestination): Promise<void> {
     await this.database![this.databaseKey].insert(destination);
   }
-
   /**
    * Deletes destination from database.
    * @param destination
@@ -70,7 +62,6 @@ export class DestinationService {
     })
     await query?.remove();
   }
-
   /**
    * Marks destination as completed.
    * @param destination
@@ -89,7 +80,6 @@ export class DestinationService {
       }
     });
   }
-
   /**
    * Sets tag for the destination
    * @param destination
@@ -108,7 +98,6 @@ export class DestinationService {
       }
     });
   }
-
   /**
    * Sets list for the destination
    * @param destination
@@ -127,7 +116,6 @@ export class DestinationService {
       }
     });
   }
-
   /**
    * Sets notes for the destination
    * @param destination
@@ -146,38 +134,37 @@ export class DestinationService {
       }
     });
   }
-
   /**
    * Gets destinations that are not marked as done.
    * @returns
    */
-  public getUpcomingDestinations(type: string | undefined = undefined, id: number | undefined = undefined): BehaviorSubject<any[]> {  
+public getUpcomingDestinations(type: string | undefined = undefined, id: string | number | undefined = undefined): BehaviorSubject<any[]> {
     return this.database![this.databaseKey].find({
       selector: {
         done: {
           $eq: false
         }
-      },
+ },
       sort: [
         { createdAt: 'desc' }
       ]
-    }).$; 
+    }).$;
   }
 
   /**
    * Gets destinations that are marked as done.
    * @returns
    */
-  public getPastDestinations(type: string | undefined = undefined, id: number | undefined = undefined): BehaviorSubject<any[]> {
+public getPastDestinations(type: string | undefined = undefined, id: string | number | undefined = undefined): BehaviorSubject<any[]> {
     return this.database![this.databaseKey].find({
       selector: {
         done: {
           $eq: true
         }
-      },
+  },
       sort: [
         { createdAt: 'desc' }
       ]
-    }).$; 
+    }).$;
   }
 }

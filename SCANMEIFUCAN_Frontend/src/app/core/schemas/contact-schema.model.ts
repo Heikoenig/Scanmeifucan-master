@@ -50,3 +50,4 @@ export const contactsSchema: RxJsonSchema<IContact> = {
   },
   required: ['id', 'firstname', 'lastname', 'email', 'avatar', 'profession', 'mobile', 'tel', 'done', 'notes']
 }
+

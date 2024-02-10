@@ -4,12 +4,12 @@
     --accent-color: #29a2f8;
     --body-color: #313131;
     --body-color-variant: black;
-
     /** SIDEBAR **/
     --sidebar-background-color: #3FA9F5;
     --sidebar-color: #fff;
     --sidebar-active-color: #black;
     --sidebar-item-hover-background-color: #57b6fa;
+    --sidebar-header-color: black;
 
     /** TRAVEL LIST **/
     --travel-list-item-background: #eeeeee;
@@ -30,11 +30,12 @@
     --chip-tag-color: black;
     --chip-tag-country-background-color: #77b942;
     --continent-chip-color: black;
-    
-    /** MAT SELECT **/
+
+
+    /* MAT SELECT */
     --selected-value-color: black;
 
-    /** DIALOG **/
+    /* DIALOG */
     --dialog-background-color:  rgb(80, 80, 80);
     --dialog-color: white;
 }

@@ -10,24 +10,24 @@
 
         <h3 class="mt-4">{{ 'destinations-component.lists' | translate }}</h3>
         <mat-chip-listbox>
-            <mat-chip-option (click)="updateList(list);" [selected]="list.id == selectedDestination.list.id" *ngFor="let list of availableLists">{{ list.name }}</mat-chip-option>
+ <mat-chip-option (click)="updateList(list);" [selected]="list.id == selectedDestination.list.id" *ngFor="let list of availableLists">{{ list.name }}</mat-chip-option>
         </mat-chip-listbox>
 
         <h3 class="mt-4">{{ 'destinations-component.tags' | translate }}</h3>
         <mat-chip-listbox>
-            <mat-chip-option (click)="updateTag(tag);" [selected]="tag.id == selectedDestination.tag.id" *ngFor="let tag of availableTags">{{ tag.name }}</mat-chip-option>
+ <mat-chip-option (click)="updateTag(tag);" [selected]="tag.id == selectedDestination.tag.id" *ngFor="let tag of availableTags">{{ tag.name }}</mat-chip-option>
         </mat-chip-listbox>
 
         <h3 class="mt-4">{{ 'destinations-component.notes' | translate }}</h3>
         <mat-form-field class="w-100">
             <mat-label>{{ 'destinations-component.notes-placeholder-readonly' | translate }}</mat-label>
-            <textarea rows="5" matInput [(ngModel)]="selectedDestination.notes"></textarea>
+<textarea rows="5" matInput [(ngModel)]="selectedDestination.notes"></textarea>
         </mat-form-field>
         <button class="mb-5" (click)="updateNotes(selectedDestination.notes)" mat-raised-button color="primary">{{ 'destinations-component.save-notes' | translate}}</button>
 
         <div class="w-100">
-            <button (click)="deleteDestination();" class="me-2 mb-2" mat-raised-button color="warn">{{ 'destinations-component.delete' | translate}}</button>
-            <button class="mb-2" (click)="completeDestination(selectedDestination, !selectedDestination.done)" mat-raised-button color="primary">{{  selectedDestination.done ? ('destinations-component.mark-undone' | translate) : ('destinations-component.mark-done' | translate)}}</button>
+            <button (click)="deleteDestination();" class="mb-2" mat-raised-button color="warn">{{ 'destinations-component.delete' | translate}}</button>
+            <button class="mb-2" (click)="completeDestination(selectedDestination, !selectedDestination.done)" mat-raised-button color="primary">{{selectedDestination.done ? ( 'destinations-component.mark-undone' | translate) : ('destinations-component.mark-done' | translate)}}</button>
         </div>
     </div>
 </mat-dialog-content>

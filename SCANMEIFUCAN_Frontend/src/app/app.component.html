@@ -1,8 +1,10 @@
-<button mat-icon-button color="primary" class="sidebar-button" (click)="toggleSidebar()">
-    <mat-icon>menu</mat-icon>
-</button>
 
-<div class="root-container">
+
+    <button mat-icon-button color="primary" class="sidebar-button" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="root-container">
     <!-- Sidebar -->
     <div class="sidebar-container" [ngClass]="{'visible': isSidebarToggled}">
         <app-sidebar></app-sidebar>
@@ -12,6 +14,8 @@
     <div class="content-container">
         <router-outlet></router-outlet>
     </div>
-</div>
+    </div>
+    
+    <div *ngIf="isSidebarToggled" class="sidebar-overlay" (click)="toggleSidebar()"></div>
 
-<div *ngIf="isSidebarToggled" class="sidebar-overlay" (click)="toggleSidebar()"></div>
+    

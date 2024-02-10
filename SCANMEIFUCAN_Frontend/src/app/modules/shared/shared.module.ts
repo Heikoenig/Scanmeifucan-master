@@ -11,7 +11,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { LottieAnimModule } from 'projects/lottie-anim/src/public-api';
+import { LottieAnimModule } from 'lottie-anim';
+
 
 /**
  * Shared module that is imported by lazy loaded modules.
@@ -22,7 +23,6 @@ import { LottieAnimModule } from 'projects/lottie-anim/src/public-api';
   exports: [
     CommonModule,
     FormsModule,
-    LottieAnimModule,
     TranslateModule,
     MatCheckboxModule,
     MatInputModule,
@@ -32,11 +32,11 @@ import { LottieAnimModule } from 'projects/lottie-anim/src/public-api';
     MatExpansionModule,
     MatIconModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    LottieAnimModule,
   ],
   providers: [],
   bootstrap: []
 })
 export class SharedModule {
-
 }

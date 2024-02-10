@@ -4,6 +4,7 @@
     }
 }
 
+
 .sidebar {
     height: 100%;
     width: var(--sidebar-width);
@@ -30,6 +31,7 @@
     color: var(--sidebar-color);
     transition: background-color ease-in-out 100ms;
     padding: 0 20px;
+
 }
 
 .sidebar-menu-item.active {
@@ -62,6 +64,7 @@
     flex-direction: row;
     align-items: center;
     color: var(--sidebar-header-color);
+
 }
 
 .sidebar-header {
@@ -70,6 +73,7 @@
 
 .sidebar-header img {
     margin: 30px 0;
+
 }
 
 .bi::before {

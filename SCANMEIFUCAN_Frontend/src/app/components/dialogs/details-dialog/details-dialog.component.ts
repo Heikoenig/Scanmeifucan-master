@@ -58,17 +58,14 @@ export class DetailsDialogComponent {
   public closeDialog(dialogResult: any = undefined): void {
     this.dialogRef.close(dialogResult);
   }
-
-  /**
-   * Deletes selected destination.
+  /*** Deletes selected destination.
    */
   public deleteDestination(): void {
     this.destinationsService.deleteDestination(this.selectedDestination!);
     this.closeDialog({ action: 'delete', value: true });
   }
-
-  /**
-   * Completes selected destination.
+  /*
+    Completes selected destination.
    */
   public completeDestination(destination: IDestination, complete: boolean): void {
     this.destinationsService.completeDestination(destination, complete);

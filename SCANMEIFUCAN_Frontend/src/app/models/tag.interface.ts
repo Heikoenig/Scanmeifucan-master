@@ -8,4 +8,6 @@ export interface ITag extends IItemBase {
      * Gets or sets name of the tag.
      */
     name: string;
+
+  
 }
