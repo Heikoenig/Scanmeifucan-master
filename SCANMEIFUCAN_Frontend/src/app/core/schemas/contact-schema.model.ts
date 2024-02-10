@@ -14,6 +14,9 @@ export const contactsSchema: RxJsonSchema<IContact> = {
       type: 'number',
       maxLength: 10000 // <- the primary key must have set maxLength
     },
+    title: {
+      type: 'string',
+    },
     firstname: {
       type: 'string',
     },

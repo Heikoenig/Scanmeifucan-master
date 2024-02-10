@@ -4,6 +4,7 @@ import { IItemBase } from "./item-base.interface";
  * Model that represents contact.
  */
 export interface IContact extends IItemBase {
+  title: string;
   /**
   * Gets or sets firstname of the contact.
   */

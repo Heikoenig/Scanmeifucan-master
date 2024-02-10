@@ -15,11 +15,14 @@
 </div>
 
 <div class="contact-panel-details">
-  <b class="row-label">Speech</b>
-  <span>Mister</span>
-  <!-- <div class="edit-icon">
-    <i class="bi bi-pencil-fill"></i>
-  </div> -->
+  <b class="row-label">Title</b>
+  <mat-form-field *ngIf="editTitle">
+    <input type="text" matInput [(ngModel)]="contact.title">
+  </mat-form-field>
+  <span *ngIf="!editTitle">{{ contact.title }}</span>
+  <div class="edit-icon" *ngIf="!editTitle">
+    <i class="bi bi-pencil-fill" (click)="editTitle = true"></i>
+  </div> 
 </div>
 
 <div class="contact-panel-details">
