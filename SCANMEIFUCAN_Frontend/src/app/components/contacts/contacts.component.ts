@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IContact } from 'src/app/models/contact.interface';
 import { ContactService } from 'src/app/services/contact.service';
-import { ActivatedRoute } from '@angular/router';
-import { DetailsDialogComponent } from '../dialogs/details-dialog/details-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WebcamImage } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
@@ -33,6 +32,7 @@ export class ContactsComponent {
 
 
   constructor(
+    private route: Router,
     private route: ActivatedRoute,
     private contactsService: ContactService,
     private apiService: ApiService,
@@ -68,7 +68,6 @@ export class ContactsComponent {
     }, []);
 
     this.groupedContacts = grouped;
-    console.log(this.groupedContacts);
   }
 
   private getAllContacts(): void {
@@ -93,12 +92,6 @@ export class ContactsComponent {
   }
 
   public showDetailsDialog(contact: IContact): void {
-    let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    if (width > 1200)
-      return;
-    this.dialog.open(ContactDetailComponent, {
-      data: { contact: contact }
-    });
   }
 
 
@@ -135,6 +128,7 @@ export class ContactsComponent {
         this.sysImage = '';
         this.pageIndex = 1;
         this.getAllContacts();
+        this.router.navigateByUrl('/home');
       })
   }
 

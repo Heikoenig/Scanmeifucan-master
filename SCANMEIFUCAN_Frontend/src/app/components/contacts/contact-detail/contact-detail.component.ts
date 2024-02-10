@@ -18,12 +18,6 @@ export class ContactDetailComponent {
   public editMobile: boolean = false;
   public editTel: boolean = false;
 
-  constructor(public dialogRef: MatDialogRef<ContactDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    if (this.data && this.data.contact)
-      this.contact = this.data.contact;
-  }
-
   public resetEditState(){
     this.editTitle = false
     this.editFirstName = false;
