@@ -26,5 +26,15 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-data",
+      "urls": ["/api/contact"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100
+      }
+    }
   ]
 }

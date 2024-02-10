@@ -22,6 +22,7 @@ import { DetailsDialogComponent } from './components/dialogs/details-dialog/deta
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { WebcamModule } from 'ngx-webcam';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { ContactDetailDialogComponent } from './components/dialogs/contact-detail-dialog/contact-detail-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ConfirmationDialogComponent } from './components/dialogs/confirmation-d
     TagsDialogComponent,
     DestinationDialogComponent,
     DetailsDialogComponent, 
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ContactDetailDialogComponent
   ],
   imports: [
     CommonModule,

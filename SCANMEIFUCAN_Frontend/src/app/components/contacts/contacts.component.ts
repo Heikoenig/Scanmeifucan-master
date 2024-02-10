@@ -96,7 +96,7 @@ export class ContactsComponent {
     let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     if (width > 1200)
       return;
-    this.dialog.open(DetailsDialogComponent, {
+    this.dialog.open(ContactDetailComponent, {
       data: { contact: contact }
     });
   }
@@ -142,6 +142,8 @@ export class ContactsComponent {
     this.apiService.updateContact(event.id, event).subscribe(res=>{
       this.contactDetail?.resetEditState();
       this.getAllContacts();
-    })
+    }, ((err: any)=>{
+      this.responseError = true;
+    }))
   }
 }

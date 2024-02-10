@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IContact } from 'src/app/models/contact.interface';
 
 @Component({
@@ -16,6 +17,12 @@ export class ContactDetailComponent {
   public editProfession: boolean = false;
   public editMobile: boolean = false;
   public editTel: boolean = false;
+
+  constructor(public dialogRef: MatDialogRef<ContactDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    if (this.data && this.data.contact)
+      this.contact = this.data.contact;
+  }
 
   public resetEditState(){
     this.editTitle = false
