@@ -27,9 +27,8 @@ export class ContactsComponent {
  * Gets or sets if data is being loaded.
  */
   public isLoading: boolean = false;
-
   public allContacts: IContact[] = [];
-
+  public groupedContacts: { createdon: string; contacts: any[] }[] = [];
   public selectedContact: IContact | undefined;
 
 
@@ -54,9 +53,28 @@ export class ContactsComponent {
     this.showDetailsDialog(contact);
   }
 
+  private groupContactsByDate(): void {
+    const grouped = this.allContacts.reduce((acc: any, contact) => {
+      const createdon = contact.createdon;
+      const datePart = new Date(createdon).toLocaleDateString(); // Extract date part
+
+      const group: any = acc.find((g: any) => g.createdon === datePart);
+      if (group) {
+        group.contacts.push(contact);
+      } else {
+        acc.push({ createdon: datePart, contacts: [contact] });
+      }
+      return acc;
+    }, []);
+
+    this.groupedContacts = grouped;
+    console.log(this.groupedContacts);
+  }
+
   private getAllContacts(): void {
     this.apiService.getAllContact().subscribe((result: any) => {
       this.allContacts = result.contact;
+      this.groupContactsByDate();
     });
   }
 

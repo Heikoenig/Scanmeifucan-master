@@ -10,9 +10,9 @@
           translate}}</button>
       </div>
   
-      <div class="row h-100">
-        <div class="col-xl-4 p-2 list-col">
-          <div class="card w-100 p-2 h-100 animate_animated animateslideInUp animate_faster">
+      <div class="row">
+        <div class="col-xl-5 p-2 list-col">
+          <div class="card w-100 p-2 animate_animated animateslideInUp animate_faster">
             <div class="card-body">
               <h2 class="card-header-text">{{ 'contacts-component.recently-added' | translate }}</h2>
               <div *ngIf="isLoading" class="text-center">
@@ -27,19 +27,22 @@
                 <p class="animate_animated animatefaster animateslideInUpBig animate_delay-100ms">
                   {{ 'home-component.empty-info' | translate }}</p>
               </div>
-              <ul class="travel-list mt-3" style="height: 100%; overflow: auto;">
-                <li class="travel-list-item"
-                  [ngClass]="{'active': selectedContact != undefined && selectedContact.id == contact.id}" matRipple
-                  *ngFor="let contact of allContacts" (click)="selectListItem(contact)">
-                  <app-contact-item [contact]="contact" (deleteClicked)="deleteContact(contact.id)"> </app-contact-item>
-                </li>
+              <ul class="travel-list mt-3">
+                <ng-container *ngFor="let group of groupedContacts">
+                  <li class="group-date" *ngIf="group.contacts.length > 0">Created on {{ group.createdon }}</li>
+                  <li class="travel-list-item" *ngFor="let contact of group.contacts"
+                    [ngClass]="{'active': selectedContact != undefined && selectedContact.id == contact.id}" matRipple
+                    (click)="selectListItem(contact)">
+                    <app-contact-item [contact]="contact" (deleteClicked)="deleteContact(contact.id)"> </app-contact-item>
+                  </li>
+                </ng-container>
               </ul>
             </div>
           </div>
         </div>
   
-        <div class="col-xl-8 p-2 inspector-col">
-          <div class="card w-100 h-100 p-2 animate_animated animateslideInUp animatefaster animate_delay-100ms">
+        <div class="col-xl-7 p-2 inspector-col">
+          <div class="card w-100 p-2 animate_animated animateslideInUp animatefaster animate_delay-100ms">
             <div class="card-body">
   
               <div *ngIf="isAddMode; else edit">
@@ -68,7 +71,8 @@
   
               <ng-template #edit>
                 <div *ngIf="!!selectedContact; else elseBlock">
-                  <app-contact-detail #contactDetail [contact]="selectedContact" (saveChangesClicked)="updateContact($event)"></app-contact-detail>
+                  <app-contact-detail #contactDetail [contact]="selectedContact" 
+                  (saveChangesClicked)="updateContact($event)"></app-contact-detail>
                 </div>
   
                 <ng-template #elseBlock>
