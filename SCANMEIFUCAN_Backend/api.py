@@ -210,12 +210,6 @@ def ocr():
 
         image = Image.open(BytesIO(image_data))
 
-        temp_image_path = 'temp_image.jpeg'
-        image.save(temp_image_path)
-        
-        import os
-        os.remove(temp_image_path)
-
         # Perform OCR using pytesseract
         print('----------------- print(ocr_result)')
         ocr_result = pytesseract.image_to_string(image)
@@ -230,7 +224,7 @@ def ocr():
         print('----------------- print(names)')
         names = extract_names(ocr_result)
         print(names)
-        #org
+        #orgs = extract_org(string)
         print('----------------- print(professions)')
         professions = extract_profession(ocr_result)
         print(professions)
@@ -240,6 +234,7 @@ def ocr():
         #print(emails)
         #print(numbers)
         #print(professions)
+        
         if(len(names) == 0):
             res = {
             'issuccess': False,
@@ -248,14 +243,14 @@ def ocr():
             return jsonify(res), 400
 
         d = {
-        'title': '',
-        'firstname': names[0] if len(names) > 1 else '',
-        'lastname': names[1] if len(names) > 1 else '',
-        'email': emails[0] if len(emails) > 0 else '',
-        'profession': professions[0] if len(professions) > 0 else '',
-        'mobile': numbers[0] if len(numbers) > 0 else '',
-        'tel': numbers[1] if len(numbers) > 1 else '',
-        'notes': ''
+            'title': '',
+            'firstname': names[0] if len(names) > 1 else '',
+            'lastname': names[1] if len(names) > 1 else '',
+            'email': emails[0] if len(emails) > 0 else '',
+            'profession': professions[0] if len(professions) > 0 else '',
+            'mobile': numbers[0] if len(numbers) > 0 else '',
+            'tel': numbers[1] if len(numbers) > 1 else '',
+            'notes': ''
         }
 
         create_contact_inner(d)
@@ -269,43 +264,58 @@ def ocr():
         return jsonify({'error': str(e)}), 500
 
 def create_contact_inner(data):
-    new_contact = Contact(
-        firstname=data.get('firstname'),
-        lastname=data.get('lastname'),
-        email=data.get('email'),
-        profession=data.get('profession'),
-        mobile=data.get('mobile'),
-        tel=data.get('tel'),
-        notes=data.get('notes')
-    )
+    try:
+        new_contact = Contact(
+            firstname=data.get('firstname'),
+            lastname=data.get('lastname'),
+            email=data.get('email'),
+            profession=data.get('profession'),
+            mobile=data.get('mobile'),
+            tel=data.get('tel'),
+            notes=data.get('notes')
+        )
 
-    db.session.add(new_contact)
-    db.session.commit()
+        db.session.add(new_contact)
+        db.session.commit()
+    except Exception as e:
+        print(str(e))    
 
 def extract_phone_numbers(string):
-    r = re.compile(r'(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})')
-    phone_numbers = r.findall(string)
-    return [re.sub(r'\D', '', number) for number in phone_numbers]
+    try:
+        # r = re.compile(r'(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})')
+        r= re.compile(r'\b(?:\+\d{1,4}\s?)?(?:\(\d{1,}\)\s?|\d{1,}[-.\s]?)?\d{1,}[-.\s]?\d{1,}[-.\s]?\d{1,}\b')
+        phone_numbers = r.findall(string)
+        return [re.sub(r'\D', '', number) for number in phone_numbers]
+    except Exception as e:
+        print(str(e))
 
 def extract_email_addresses(string):
-    r = re.compile(r'[\w\.-]+@[\w\.-]+')
-    return r.findall(string)
-
+    try:
+        r = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
+        return r.findall(string)
+    except Exception as e:
+        print(str(e))
 
 def ie_preprocess(document, useStop= True):
-    if useStop:
-        document = ' '.join([i for i in document.split() if i not in stop])
-    sentences = nltk.sent_tokenize(document)
-    sentences = [nltk.word_tokenize(sent) for sent in sentences]
-    sentences = [nltk.pos_tag(sent) for sent in sentences]
-    return sentences
+    try:
+        if useStop:
+            document = ' '.join([i for i in document.split() if i not in stop])
+        sentences = nltk.sent_tokenize(document)
+        sentences = [nltk.word_tokenize(sent) for sent in sentences]
+        sentences = [nltk.pos_tag(sent) for sent in sentences]
+        return sentences
+    except Exception as e:
+        print(str(e))
 
 def ie_preprocess_prof(document):
-    document = ' '.join([i for i in document.split() if i not in stop])
-    sentences = nltk.sent_tokenize(document)
-    sentences = [nltk.word_tokenize(sent) for sent in sentences]
-    sentences = [nltk.pos_tag(sent) for sent in sentences]
-    return sentences
+    try:
+        document = ' '.join([i for i in document.split() if i not in stop])
+        sentences = nltk.sent_tokenize(document)
+        sentences = [nltk.word_tokenize(sent) for sent in sentences]
+        sentences = [nltk.pos_tag(sent) for sent in sentences]
+        return sentences
+    except Exception as e:
+        print(str(e))
 
 def extract_names(document):
     try:
@@ -318,28 +328,34 @@ def extract_names(document):
                         names.append(' '.join([c[0] for c in chunk]))
         return names
     except Exception as e:
-        print (str(e))
+        print(str(e))
 
 def extract_org(document):
-    orgs = []
-    sentences = ie_preprocess(document, False)
-    for tagged_sentence in sentences:
-        for chunk in nltk.ne_chunk(tagged_sentence):
-            if type(chunk) == nltk.tree.Tree:
-                if chunk.label() == 'ORGANIZATION':
-                    orgs.append(' '.join([c[0] for c in chunk]))
-    return orgs
+    try:
+        orgs = []
+        sentences = ie_preprocess(document, False)
+        for tagged_sentence in sentences:
+            for chunk in nltk.ne_chunk(tagged_sentence):
+                if type(chunk) == nltk.tree.Tree:
+                    if chunk.label() == 'ORGANIZATION':
+                        orgs.append(' '.join([c[0] for c in chunk]))
+        return orgs
+    except Exception as e:
+        print(str(e))
 
 def extract_profession(document):
-    professions = []
-    sentences = ie_preprocess_prof(document)
-    for tagged_sentence in sentences:
-        for chunk in nltk.ne_chunk(tagged_sentence):
-            if type(chunk) == nltk.tree.Tree:
-                l = chunk.label()
-                if l == 'NN' or l == 'NNS':
-                    professions.append(' '.join([c[0] for c in chunk]))
-    return professions
+    try:
+        professions = []
+        sentences = ie_preprocess_prof(document)
+        for tagged_sentence in sentences:
+            for chunk in nltk.ne_chunk(tagged_sentence):
+                if type(chunk) == nltk.tree.Tree:
+                    l = chunk.label()
+                    if l == 'NN' or l == 'NNS':
+                        professions.append(' '.join([c[0] for c in chunk]))
+        return professions
+    except Exception as e:
+        print(str(e))
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(debug=True)
