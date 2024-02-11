@@ -357,5 +357,5 @@ def extract_profession(document):
     except Exception as e:
         print(str(e))
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
